@@ -242,6 +242,10 @@ class CartPole(object):
             frames = []
 
             while True:
+
+                if self.training_display:
+                    self.env.render()
+
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
@@ -267,7 +271,8 @@ class CartPole(object):
                                               fargs=(frames, patch),
                                               frames=len(frames),
                                               repeat=True)
-                ani.save("CartPole.mp4", writer=None, fps=30, dpi=100) # "imagemagick", "ffmpeg"
+                ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
+                #ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
 
 

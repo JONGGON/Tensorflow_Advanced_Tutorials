@@ -38,15 +38,17 @@ for i, GL in enumerate(GPU_List):
     else:
         print(" " + num + ",", end="")
 
+
 Atari = model(
-    # model_name = "" or "" or " "
-    model_name="Pong-v0",
+    # https://gym.openai.com/envs/#atari
+    # ex) Tennis-v0, Pong-v0, BattleZone-v0
+    model_name="Breakout-v0",
     training_display=True,
     SaveGameMovie=True,
     training_step=200000000,
     training_interval=4,
-    rememorystackNum=1000000, #메모리 문제로 줄인다.
-    save_step=10000,
+    rememorystackNum=500000, #메모리 문제로 줄인다.
+    save_step=30000,
     copy_step=10000,
 
     framesize=4, # 입력 상태 개수

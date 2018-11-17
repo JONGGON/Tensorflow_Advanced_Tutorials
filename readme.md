@@ -89,12 +89,14 @@
                     * 256x256 크기의 이미지로 학습한 생성 네트워크에 512x512 크기의 이미지를 입력으로 넣어 성능을 평가하기 위한 기능입니다. 다양한 크기의 이미지를 동시에 학습하는 것도 가능합니다. ( 관련 내용 : [Image To Image Translation With Conditional Adversarial Networks Using edges2shoes Dataset 논문의 7p 참고](https://arxiv.org/pdf/1611.07004.pdf))
 
         * ### **Reinforcement Learning from Hands-On ML**
-            * [***Policy Gradient - only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/PG) 
+            * [***Policy Gradient with CartPole- only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/PG_CartPole) 
                 * 카트 위에 놓인 막대가 넘어지지 않도록 왼쪽 또는 오른쪽으로 가속시키는 2D 시뮬레이션입니다.
                 * 일단 에피소드를 몇 번 진행해보고 이를 평균내어 학습합니다.
-                    * 몬테카를로 정책 그라디언트(Monte Carlo Policy Gradient) 방법입니다.
-            * [***Double Q-learning - only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/DoubleQL)
-                * 심층 Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+                    * 몬테카를로 정책 그라디언트(Monte Carlo Policy Gradient) 방법입니다. 
+                    
+            * [***Double Q-learning - only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/DoubleQL_BreakOut)
+                * Double Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 

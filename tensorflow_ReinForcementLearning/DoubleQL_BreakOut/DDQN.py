@@ -42,7 +42,7 @@ class ReplacyMemory(object):
 class model(object):
 
     def __init__(self,
-                 model_name="Pong-v0",
+                 model_name="Breakout-v0",
                  training_display=True,
                  SaveGameMovie=True,
                  training_step=200000000,
@@ -67,6 +67,7 @@ class model(object):
         self.env = gym.make(model_name)
         self.training_display = training_display
         self.SaveGameMovie = SaveGameMovie
+
         # 학습 하이퍼파라미터
         self.framesize = framesize
         self.training_step = training_step
@@ -132,7 +133,7 @@ class model(object):
 
         # 84 x 84 gray로 만들기
         obs = cv2.cvtColor(obs, cv2.COLOR_BGR2GRAY)
-        obs = cv2.resize(obs, dsize=(84,84))
+        obs = cv2.resize(obs, dsize=(84, 84))
         obs = np.subtract(obs, 128.0)
         return obs.astype(np.int8)
 
@@ -151,14 +152,14 @@ class model(object):
         with tf.variable_scope(name) as scope:
             conv1 = tf.layers.conv2d(inputs=inputs, filters=32, kernel_size=(8, 8), strides=(4, 4), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer) # N X 20 X 20 X 32
+                                     kernel_initializer=initializer)  # N X 20 X 20 X 32
             conv2 = tf.layers.conv2d(inputs=conv1, filters=64, kernel_size=(4, 4), strides=(2, 2), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)# N X 9 X 9 X 64
+                                     kernel_initializer=initializer)  # N X 9 X 9 X 64
             conv3 = tf.layers.conv2d(inputs=conv2, filters=64, kernel_size=(3, 3), strides=(1, 1), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)# N X 7 X 7 X 64
-            flatten_conv3 = tf.reshape(conv3, shape=[-1, 7*7*64])
+                                     kernel_initializer=initializer)  # N X 7 X 7 X 64
+            flatten_conv3 = tf.reshape(conv3, shape=[-1, 7 * 7 * 64])
             hidden = tf.layers.dense(flatten_conv3, 512, activation=tf.nn.relu, kernel_initializer=initializer)
             output = tf.layers.dense(hidden, self._action_space_number, kernel_initializer=initializer)
 
@@ -204,7 +205,7 @@ class model(object):
                     tf.multiply(self.online_Qvalue, tf.one_hot(tf.to_int32(self.action), self._action_space_number)),
                     axis=1,
                     keepdims=True)
-                self.loss = tf.losses.mean_squared_error(labels = self.target, predictions = Qvalue)
+                self.loss = tf.losses.mean_squared_error(labels=self.target, predictions=Qvalue)
 
             with tf.name_scope("trainer"):
                 optimizer = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate, momentum=self.momentum)
@@ -286,7 +287,7 @@ class model(object):
             재현 메모리 실행
             why ? not gamestate -> 1게임이 끝나면, gamestate 는 True(즉, 1)를 반환하는데,
             이는 게임 종료에 해당함으로, gamestate가 0(즉 not True = False = 0)이 되어야 학습할 때 target_Qvalue를 0으로 만들 수 있다.
-            
+
             '''
             self.RM.append((state, action, reward, next_state, not gamestate))
             state = next_state
@@ -380,6 +381,10 @@ class model(object):
             self.env.reset()
             before_scene, _, _ = self._concat_state(action=np.random.randint(self._action_space_number))
             while True:
+
+                if self.training_display:
+                    self.env.render()
+
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
@@ -387,7 +392,7 @@ class model(object):
                 next_scene, reward, gamestate = self._concat_state(action=np.argmax(action))
                 before_scene = next_scene
                 print("게임 step {} -> reward :{}".format(step, reward))
-                
+
                 if gamestate:
                     print("total reward : {}".format(total_reward))
                     self.env.close()
@@ -408,12 +413,12 @@ class model(object):
                                               repeat=True)
 
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
+                #ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
 
 if __name__ == "__main__":
     Atari = model(
-        # model_name = "" or "" or " "
-        model_name="Pong-v0",
+        model_name="Breakout-v0",
         training_display=True,
         SaveGameMovie=True,
         training_step=200000000,
