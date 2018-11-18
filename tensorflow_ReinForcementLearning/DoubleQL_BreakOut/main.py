@@ -34,33 +34,33 @@ for i, GL in enumerate(GPU_List):
     num = GL.split(":")[-1]
     # gpu_number_list.append(num)
     if len(GPU_List) - 1 == i:
+
         print(" " + num)
     else:
         print(" " + num + ",", end="")
-
 
 Atari = model(
     # https://gym.openai.com/envs/#atari
     # ex) Tennis-v0, Pong-v0, BattleZone-v0
     model_name="Breakout-v0",
-    training_display=True,
-    SaveGameMovie=True,
-    training_step=200000000,
+    training_display=100000,
+    training_step=10000000,
+    training_start_point=10000,
     training_interval=4,
-    rememorystackNum=500000, #메모리 문제로 줄인다.
-    save_step=30000,
-    copy_step=10000,
-
+    rememorystackNum=300000,
+    save_step=50000,
+    copy_step=50000,
     framesize=4, # 입력 상태 개수
     learning_rate=0.00025,
-    momentum = 0.95,
+    momentum=0.95,
     egreedy_max=1,
     egreedy_min=0.1,
-    egreedy_step=1000000,
+    egreedy_step=5000000,
     discount_factor=0.99,
-    batch_size=32,
+    batch_size=64,
     with_replacement=True,
-    only_draw_graph=False)  # model 초기화 하고 연산 그래프 그리기
+    only_draw_graph=False, # model 초기화 하고 연산 그래프 그리기
+    SaveGameMovie=True)
 
 Atari.train  # 학습 하기
 Atari.test  # 테스트 하기

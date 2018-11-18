@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="371bab19-ff05-4eca-b3a2-711be4796790" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/MsPacman.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/libraries/R_User_Library.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/DDQN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/ReinforcementLearning.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/libraries/R_User_Library.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-100.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-100.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-200.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-200.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Graph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DDQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DDQN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -202,20 +178,31 @@
     <session id="-1341835729">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="114" />
+          <entry key="py" value="861" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="114" />
+          <entry key="Python" value="861" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -225,8 +212,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="42" column="39" lean-forward="true" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+            <state relative-caret-position="776">
+              <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -237,11 +224,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DDQN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="381" column="36" selection-start-line="381" selection-start-column="36" selection-end-line="381" selection-end-column="36" />
+            <state relative-caret-position="292">
+              <caret line="325" column="24" lean-forward="true" selection-start-line="325" selection-start-column="24" selection-end-line="325" selection-end-column="24" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/core.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4035">
+              <caret line="273" column="8" selection-start-line="273" selection-start-column="8" selection-end-line="273" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -257,8 +253,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>activation</find>
-      <find>self.activation</find>
       <find>padding</find>
       <find>kernel_size</find>
       <find>self.action_space</find>
@@ -285,6 +279,10 @@
       <find>figsize</find>
       <find>data_format</find>
       <find>display</find>
+      <find>self.cpFromOnlinetoTarget</find>
+      <find>training_display</find>
+      <find>self.env</find>
+      <find>self.val_env</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -294,8 +292,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../code/Heightof4wayToHeightof8way.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/DDQN.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -413,13 +411,13 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14324768" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1377802" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.2965368" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.4025974" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.44177672" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -485,7 +483,6 @@
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/training/adam.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/platform.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/psutil/__init__.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/core.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/cv2/cv2/__init__.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/numpy/random/mtrand.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/cv2/cv2/VideoWriter.py" />
@@ -508,10 +505,17 @@
     <entry file="file://$PROJECT_DIR$/../../../FlexibleGRPC_NewVersion/serverGRPC.py" />
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/tensorflow/python/ops/losses/losses_impl.py" />
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/wrappers/time_limit.py" />
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4035">
+          <caret line="273" column="8" selection-start-line="273" selection-start-column="8" selection-end-line="273" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="42" column="39" lean-forward="true" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+        <state relative-caret-position="776">
+          <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -520,8 +524,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DDQN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="381" column="36" selection-start-line="381" selection-start-column="36" selection-end-line="381" selection-end-column="36" />
+        <state relative-caret-position="292">
+          <caret line="325" column="24" lean-forward="true" selection-start-line="325" selection-start-column="24" selection-end-line="325" selection-end-column="24" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

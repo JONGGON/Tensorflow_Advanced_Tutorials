@@ -43,34 +43,37 @@ class model(object):
 
     def __init__(self,
                  model_name="Breakout-v0",
-                 training_display=True,
-                 SaveGameMovie=True,
+                 training_display=10000,
                  training_step=200000000,
+                 training_start_point=10000,
                  training_interval=4,
-                 rememorystackNum=1000000,
+                 rememorystackNum=500000,
                  save_step=10000,
                  copy_step=10000,
-
                  framesize=4,
-                 learning_rate=0.001,
+                 learning_rate=0.00025,
                  momentum=0.95,
                  egreedy_max=1,
                  egreedy_min=0.1,
                  egreedy_step=1000000,
                  discount_factor=0.99,
-                 batch_size=32,
+                 batch_size=64,
                  with_replacement=True,
-                 only_draw_graph=False):
+                 only_draw_graph=False,
+                 SaveGameMovie=True):
 
         # 환경 만들기
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
         self.env = gym.make(model_name)
+        self.val_env = gym.make(model_name)
+
         self.training_display = training_display
         self.SaveGameMovie = SaveGameMovie
 
         # 학습 하이퍼파라미터
         self.framesize = framesize
         self.training_step = training_step
+        self.training_start_point = training_start_point
         self.training_interval = training_interval
         self.learning_rate = learning_rate
         self.momentum = momentum
@@ -205,7 +208,13 @@ class model(object):
                     tf.multiply(self.online_Qvalue, tf.one_hot(tf.to_int32(self.action), self._action_space_number)),
                     axis=1,
                     keepdims=True)
-                self.loss = tf.losses.mean_squared_error(labels=self.target, predictions=Qvalue)
+
+                error = tf.abs(self.target - Qvalue)
+                # 0 < error < 1 일 때는 tf.square(clipped_error)
+                # error > 1 일때는 2*error-1 적용 - 선형
+                clipped_error = tf.clip_by_value(error, 0, 1)
+                linear_error = 2 * (error - clipped_error)
+                self.loss = tf.reduce_mean(tf.square(clipped_error) + linear_error)
 
             with tf.name_scope("trainer"):
                 optimizer = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate, momentum=self.momentum)
@@ -265,8 +274,24 @@ class model(object):
         # 실질적으로 (self.training_step - self.rememorystackNum) 만큼만 학습한다.
         for step in tqdm(range(self.start, self.training_step + 1, 1)):
 
-            if self.training_display:
-                self.env.render()
+            if step % self.training_display == 0:
+                print("\n<<< Validation at {} step >>>".format(self.training_display))
+                val_step = 1
+                valid_total_reward = 0
+                self.val_env.reset()
+                before_scene, _, _ = self._concat_state(action=np.random.randint(self._action_space_number))
+                while True:
+                    self.val_env.render()
+                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [before_scene]})
+                    next_scene, valid_reward, valid_gamestate = self._concat_state(action=np.argmax(valid_action))
+                    before_scene = next_scene
+                    print("게임 step {} -> reward :{}".format(val_step, valid_reward))
+                    if valid_gamestate:
+                        print("total reward : {}\n".format(valid_total_reward))
+                        self.val_env.close()
+                        break
+                    val_step += 1
+                    valid_total_reward += valid_reward
 
             if gamestate:
                 self.env.reset()
@@ -297,7 +322,7 @@ class model(object):
             gamelength += 1
             totalQvalues += (np.max(online_Qvalue) / gamelength)
 
-            if step % self.training_interval != 0:
+            if step < self.training_start_point or step % self.training_interval != 0:
                 continue
 
             ##################################### 학습 #########################################
@@ -380,11 +405,10 @@ class model(object):
             frames = []
             self.env.reset()
             before_scene, _, _ = self._concat_state(action=np.random.randint(self._action_space_number))
+
             while True:
 
-                if self.training_display:
-                    self.env.render()
-
+                self.env.render()
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
@@ -413,20 +437,22 @@ class model(object):
                                               repeat=True)
 
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
-                #ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
+                # ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
+
 
 if __name__ == "__main__":
     Atari = model(
+        # https://gym.openai.com/envs/#atari
+        # ex) Tennis-v0, Pong-v0, BattleZone-v0
         model_name="Breakout-v0",
-        training_display=True,
-        SaveGameMovie=True,
+        training_display=10000,
         training_step=200000000,
+        training_start_point=10000,
         training_interval=4,
-        rememorystackNum=1000000,  # 메모리 문제로 줄인다.
+        rememorystackNum=500000,
         save_step=10000,
         copy_step=10000,
-
         framesize=4,  # 입력 상태 개수
         learning_rate=0.00025,
         momentum=0.95,
@@ -434,9 +460,10 @@ if __name__ == "__main__":
         egreedy_min=0.1,
         egreedy_step=1000000,
         discount_factor=0.99,
-        batch_size=32,
+        batch_size=64,
         with_replacement=True,
-        only_draw_graph=False)  # model 초기화 하고 연산 그래프 그리기
+        only_draw_graph=False,  # model 초기화 하고 연산 그래프 그리기
+        SaveGameMovie=True)
 
     Atari.train  # 학습 하기
     Atari.test  # 테스트 하기
