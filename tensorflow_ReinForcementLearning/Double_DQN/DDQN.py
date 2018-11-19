@@ -11,7 +11,6 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
-
 class ReplacyMemory(object):
 
     def __init__(self, maxlen, batch_size, with_replacement):
@@ -142,13 +141,12 @@ class model(object):
         obs = cv2.resize(obs, dsize=(84, 84))
         return obs.astype(np.uint8)
 
-    def _concat_state(self, env, action):
+    def _concat_state(self, obs):
         concator = []
         for _ in range(self.framesize):
-            obs, reward, gamestate, info = env.step(action)
             concator.append(self._data_preprocessing(obs))
-        state = np.transpose(concator, axes=(1, 2, 0))
-        return state, reward, gamestate
+        concated_obs = np.transpose(concator, axes=(1, 2, 0))
+        return concated_obs
 
     def _DQN(self, inputs, name):
 
@@ -271,63 +269,59 @@ class model(object):
         self.summary_writer = tf.summary.FileWriter(os.path.join("tensorboard", self.model_name), self.sess.graph)
 
         gamelength = 0
+        totalgame = 0
         totalQvalues = 0
         totalrewards = 0
-        state = None
         gamestate = True  # 게임 초기화 및 게임의 완료 정보를 위함
 
         # 실질적으로 (self.training_step - self.rememorystackNum) 만큼만 학습한다.
         for step in tqdm(range(self.start, self.training_start_point + self.training_step + 1, 1)):
 
-            if step % self.display_step == 0 and self.display:
-                print("\n<<< Validation at {} step >>>".format(step))
-                val_step = 1
-                valid_total_reward = 0
-                self.val_env.reset()
-                before_scene, _, _ = self._concat_state(env=self.val_env,
-                                                        action=np.random.randint(self._action_space_number))
+            # if step % self.display_step == 0 and self.display:
+            #     print("\n<<< Validation at {} step >>>".format(step))
+            #     val_step = 1
+            #     valid_total_reward = 0
+            #     val_obs = self.val_env.reset()
+            #     before_scene = self._concat_state(val_obs)
+            #
+            #     while True:
+            #         self.val_env.render()
+            #         valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [before_scene]})
+            #         next_scene = self._concat_state()
+            #         before_scene = next_scene
+            #         val_step += 1
+            #         valid_total_reward += valid_reward
+            #
+            #         # 점수를 받은 부분만 표시하기
+            #         if valid_reward != 0:
+            #             print("게임 step {} -> reward :{}".format(val_step, valid_reward))
+            #         if valid_gamestate:
+            #             print("total reward : {}\n".format(valid_total_reward))
+            #             break
+            #
+            #     self.val_env.close()
 
-                while True:
-                    self.val_env.render()
-                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [before_scene]})
-                    next_scene, valid_reward, valid_gamestate = self._concat_state(env=self.val_env,
-                                                                                   action=np.argmax(valid_action))
-                    before_scene = next_scene
-                    val_step += 1
-                    valid_total_reward += valid_reward
-
-                    # 점수를 받은 부분만 표시하기
-                    if valid_reward != 0:
-                        print("게임 step {} -> reward :{}".format(val_step, valid_reward))
-                    if valid_gamestate:
-                        print("total reward : {}\n".format(valid_total_reward))
-                        break
-
-                self.val_env.close()
-
+            # self.obs 자체가 self.RM.append 됨에 따라 한칸씩 밀린다.
             if gamestate:
-                self.env.reset()
-                # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size , 처음에 무작위로 이동
-                state, _, _ = self._concat_state(env=self.env, action=np.random.randint(self._action_space_number))
+                totalgame += 1
+                obs = self.env.reset()
+                # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
+                self.obs = self._concat_state(obs)
 
             # 온라인 DQN을 시작한다.
-            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [state]})
+            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.obs]})
             action = self._epsilon_greedy(online_Qvalue, step)
-
-            # 다음 상태의 연속된 관측을 연결하기
-            next_state, reward, gamestate = self._concat_state(env=self.env, action=action)
+            next_state, action, reward, info = self.env.step(action)
 
             # # reward -1, 0, 1로 제한하기
             reward = np.clip(reward, a_min=-1, a_max=1)
-
             ''' 
             재현 메모리 실행
             why ? not gamestate -> 1게임이 끝나면, gamestate 는 True(즉, 1)를 반환하는데,
             이는 게임 종료에 해당함으로, gamestate가 0(즉 not True = False = 0)이 되어야 학습할 때 target_Qvalue를 0으로 만들 수 있다.
 
             '''
-            self.RM.append((state, action, reward, next_state, not gamestate))
-            state = next_state
+            self.RM.append((next_state, action, reward, not gamestate))
 
             # 1게임이 얼마나 지속? gamelength, 1게임의 q 가치의 평균 값
             totalrewards += reward
@@ -374,6 +368,7 @@ class model(object):
                 gamelength = 0
                 totalrewards = 0
 
+        print("<<< 학습간 전체 게임 횟수 : {} >>>".format(totalgame))
         # 닫기
         self.sess.close()
         self.env.close()
