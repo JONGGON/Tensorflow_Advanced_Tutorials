@@ -11,6 +11,7 @@ import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
+
 class ReplacyMemory(object):
 
     def __init__(self, maxlen, batch_size, with_replacement):
@@ -26,7 +27,6 @@ class ReplacyMemory(object):
     def append(self, data):
 
         self.buffer[self.index] = data
-
         self.length = min(self.length + 1, self.maxlen)
         self.index = (self.index + 1) % self.maxlen
 
@@ -65,8 +65,8 @@ class model(object):
         # 환경 만들기
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
 
-        self.env = gym.make(model_name)
-        self.val_env = gym.make(model_name)
+        self.env = gym.make(model_name) # train , test
+        self.val_env = gym.make(model_name) # val
 
         self.display = training_display[0]
         self.display_step = training_display[1]
@@ -91,6 +91,7 @@ class model(object):
         self.only_draw_graph = only_draw_graph
 
         # 재현 메모리
+        self.stacked_state = [] # 연속 관측을 담아두기 위한 변수
         self.with_replacement = with_replacement
         self.rememorystackNum = rememorystackNum
         self.RM = ReplacyMemory(maxlen=self.rememorystackNum, batch_size=self.batch_size,
@@ -141,12 +142,10 @@ class model(object):
         obs = cv2.resize(obs, dsize=(84, 84))
         return obs.astype(np.uint8)
 
-    def _concat_state(self, obs):
-        concator = []
-        for _ in range(self.framesize):
-            concator.append(self._data_preprocessing(obs))
-        concated_obs = np.transpose(concator, axes=(1, 2, 0))
-        return concated_obs
+    def _concat_state(self, state):
+        listed_state = [self._data_preprocessing(state) for _ in range(self.framesize)]
+        stacked_state = np.stack(listed_state, axis=-1)
+        return stacked_state
 
     def _DQN(self, inputs, name):
 
@@ -277,39 +276,38 @@ class model(object):
         # 실질적으로 (self.training_step - self.rememorystackNum) 만큼만 학습한다.
         for step in tqdm(range(self.start, self.training_start_point + self.training_step + 1, 1)):
 
-            # if step % self.display_step == 0 and self.display:
-            #     print("\n<<< Validation at {} step >>>".format(step))
-            #     val_step = 1
-            #     valid_total_reward = 0
-            #     val_obs = self.val_env.reset()
-            #     before_scene = self._concat_state(val_obs)
-            #
-            #     while True:
-            #         self.val_env.render()
-            #         valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [before_scene]})
-            #         next_scene = self._concat_state()
-            #         before_scene = next_scene
-            #         val_step += 1
-            #         valid_total_reward += valid_reward
-            #
-            #         # 점수를 받은 부분만 표시하기
-            #         if valid_reward != 0:
-            #             print("게임 step {} -> reward :{}".format(val_step, valid_reward))
-            #         if valid_gamestate:
-            #             print("total reward : {}\n".format(valid_total_reward))
-            #             break
-            #
-            #     self.val_env.close()
+            if step % self.display_step == 0 and self.display:
+                print("\n<<< Validation at {} step >>>".format(step))
+                val_step = 0
+                valid_total_reward = 0
+                val_state = self.val_env.reset()
+                valid_stacked_state = self._concat_state(val_state)
+
+                while True:
+                    val_step += 1
+                    self.val_env.render()
+                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [valid_stacked_state]})
+                    valid_next_state, valid_reward, valid_gamestate, _ = self.env.step(np.argmax(valid_action))
+                    valid_total_reward += valid_reward
+
+                    # 점수를 받은 부분만 표시하기
+                    if valid_reward != 0:
+                        print("게임 step {} -> reward :{}".format(val_step, valid_reward))
+                    if valid_gamestate:
+                        print("total reward : {}\n".format(valid_total_reward))
+                        break
+
+                self.val_env.close()
 
             # self.obs 자체가 self.RM.append 됨에 따라 한칸씩 밀린다.
             if gamestate:
                 totalgame += 1
-                obs = self.env.reset()
+                state = self.env.reset()
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
-                self.obs = self._concat_state(obs)
+                self.stacked_state = self._concat_state(state)
 
             # 온라인 DQN을 시작한다.
-            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.obs]})
+            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.stacked_state]})
             action = self._epsilon_greedy(online_Qvalue, step)
             next_state, action, reward, info = self.env.step(action)
 
@@ -321,7 +319,8 @@ class model(object):
             이는 게임 종료에 해당함으로, gamestate가 0(즉 not True = False = 0)이 되어야 학습할 때 target_Qvalue를 0으로 만들 수 있다.
 
             '''
-            self.RM.append((next_state, action, reward, not gamestate))
+            # self.obs 자체가 self.RM.append 됨에 따라 한칸씩 밀린다. - 처음에는 이 부분을 잘 못 이해하고 구현
+            = self.RM.append((self.stacked_state, next_state, action, reward, not gamestate))
 
             # 1게임이 얼마나 지속? gamelength, 1게임의 q 가치의 평균 값
             totalrewards += reward
@@ -407,25 +406,27 @@ class model(object):
                 print("<<< Restore {} checkpoint!!! >>>".format(os.path.basename(ckpt.model_checkpoint_path)))
                 saver.restore(sess, ckpt.model_checkpoint_path)
 
-            step = 1
+            step = 0
             total_reward = 0
             frames = []
-            self.env.reset()
-            before_scene, _, _ = self._concat_state(env=self.env, action=np.random.randint(self._action_space_number))
+            state = self.env.reset()
+            stacked_state = self._concat_state(state)
 
             while True:
-
+                step += 1
                 time.sleep(1 / 30)  # 30fps
                 self.env.render()
+
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
-                action = sess.run(online_Qvalue, feed_dict={state: [before_scene]})
-                next_scene, reward, gamestate = self._concat_state(env=self.env, action=np.argmax(action))
-                step += 1
+                action = sess.run(online_Qvalue, feed_dict={state: [stacked_state]})
+                next_state, reward, gamestate, _ = self.env.step(np.argmax(action))
                 total_reward += reward
 
-                before_scene = next_scene
+                # 예전의 가장 왼쪽의 프레임 날려버리기
+                stacked_state = np.stack((stacked_state[:,:,:self.framesize-1], self._data_preprocessing(next_state)[:, :, np.newaxis]), axis=-1)
+
                 if reward != 0:
                     print("게임 step {} -> reward :{}".format(step, reward))
 
@@ -450,7 +451,6 @@ class model(object):
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
                 # ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
-
 
 if __name__ == "__main__":
     Atari = model(
