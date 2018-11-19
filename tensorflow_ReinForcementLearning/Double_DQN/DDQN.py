@@ -168,7 +168,7 @@ class model(object):
                                      kernel_initializer=initializer)  # N X 6 X 6 X 256
             conv5 = tf.layers.conv2d(inputs=conv4, filters=self._action_space_number, kernel_size=(6, 6), strides=(1, 1), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 1 X 1 X 9
+                                     kernel_initializer=initializer)  # N X 1 X 1 X self._action_space_number
             output = tf.layers.flatten(conv5)
 
             # train_vars = tf.trainable_variables(scope = scope.name)
