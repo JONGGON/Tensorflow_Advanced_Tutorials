@@ -139,7 +139,7 @@ class model(object):
     def _data_preprocessing(self, obs):
         # 84 x 84 gray로 만들기
         obs = cv2.cvtColor(obs, cv2.COLOR_BGR2GRAY)
-        obs = cv2.resize(obs, dsize=(88, 88))
+        obs = cv2.resize(obs, dsize=(84, 84))
         return obs.astype(np.uint8)
 
     def _concat_state(self, env, action):
@@ -155,23 +155,19 @@ class model(object):
         # N X 84 x 84 x 4
         initializer = tf.contrib.layers.variance_scaling_initializer()
         with tf.variable_scope(name) as scope:
-            conv1 = tf.layers.conv2d(inputs=inputs, filters=32, kernel_size=(4, 4), strides=(2, 2), padding='same',
+            conv1 = tf.layers.conv2d(inputs=inputs, filters=32, kernel_size=(8, 8), strides=(4, 4), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 44 X 44 X 32
-            conv2 = tf.layers.conv2d(inputs=conv1, filters=64, kernel_size=(4, 4), strides=(2, 2), padding='same',
+                                     kernel_initializer=initializer)  # N X 20 X 20 X 32
+            conv2 = tf.layers.conv2d(inputs=conv1, filters=64, kernel_size=(4, 4), strides=(2, 2), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 22 X 22 X 64
-            conv3 = tf.layers.conv2d(inputs=conv2, filters=128, kernel_size=(4, 4), strides=(2, 2), padding='same',
+                                     kernel_initializer=initializer)  # N X 9 X 9 X 64
+            conv3 = tf.layers.conv2d(inputs=conv2, filters=64, kernel_size=(3, 3), strides=(1, 1), padding='valid',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 11 X 11 X 128
-            conv4 = tf.layers.conv2d(inputs=conv3, filters=256, kernel_size=(4, 4), strides=(2, 2), padding='same',
-                                     activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 6 X 6 X 256
-            conv5 = tf.layers.conv2d(inputs=conv4, filters=self._action_space_number, kernel_size=(6, 6),
-                                     strides=(1, 1), padding='valid',
-                                     activation=None, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 1 X 1 X self._action_space_number
-            output = tf.layers.flatten(conv5)
+                                     kernel_initializer=initializer)  # N X 7 X 7 X 64
+            hidden = tf.layers.dense(tf.reshape(conv3, shape=(-1, 7 * 7 * 64)), 512, activation=tf.nn.relu,
+                                     use_bias=True, kernel_initializer=initializer)
+            output = tf.layers.dense(hidden, self._action_space_number, activation=None, use_bias=True,
+                                     kernel_initializer=initializer)
 
             # train_vars = tf.trainable_variables(scope = scope.name)
             train_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=scope.name)

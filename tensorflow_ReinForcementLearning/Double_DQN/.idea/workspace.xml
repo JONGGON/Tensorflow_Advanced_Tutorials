@@ -208,20 +208,31 @@
     <session id="1873912812">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="131" />
+          <entry key="py" value="297" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="131" />
+          <entry key="Python" value="297" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="2" />
         </counts>
       </usages-collector>
     </session>
@@ -231,8 +242,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="44" column="36" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+            <state relative-caret-position="1234">
+              <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -243,8 +254,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DDQN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3347">
-              <caret line="168" column="53" selection-start-line="168" selection-start-column="53" selection-end-line="168" selection-end-column="53" />
+            <state relative-caret-position="-294">
+              <caret line="163" column="113" selection-start-line="163" selection-start-column="113" selection-end-line="163" selection-end-column="113" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -319,7 +330,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -331,6 +341,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,7 +438,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.38961038" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.22727273" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.44177672" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -497,8 +508,6 @@
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/cv2/cv2/VideoWriter.py" />
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/tensorflow/python/layers/core.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/gen_array_ops.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/layers/core.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/matplotlib/animation.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/builtins.py" />
@@ -534,10 +543,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/gen_array_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="6409" column="4" selection-start-line="6409" selection-start-column="4" selection-end-line="6409" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/layers/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="116" column="22" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DDQN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3347">
-          <caret line="168" column="53" selection-start-line="168" selection-start-column="53" selection-end-line="168" selection-end-column="53" />
+        <state relative-caret-position="-294">
+          <caret line="163" column="113" selection-start-line="163" selection-start-column="113" selection-end-line="163" selection-end-column="113" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -546,8 +569,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="44" column="36" selection-start-line="44" selection-start-column="36" selection-end-line="44" selection-end-column="36" />
+        <state relative-caret-position="1234">
+          <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
