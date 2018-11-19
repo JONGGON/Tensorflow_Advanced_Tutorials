@@ -1,6 +1,7 @@
 import glob
 import os
 import shutil
+import time
 
 import cv2
 import gym
@@ -166,8 +167,9 @@ class model(object):
             conv4 = tf.layers.conv2d(inputs=conv3, filters=256, kernel_size=(4, 4), strides=(2, 2), padding='same',
                                      activation=tf.nn.relu, use_bias=True,
                                      kernel_initializer=initializer)  # N X 6 X 6 X 256
-            conv5 = tf.layers.conv2d(inputs=conv4, filters=self._action_space_number, kernel_size=(6, 6), strides=(1, 1), padding='valid',
-                                     activation=tf.nn.relu, use_bias=True,
+            conv5 = tf.layers.conv2d(inputs=conv4, filters=self._action_space_number, kernel_size=(6, 6),
+                                     strides=(1, 1), padding='valid',
+                                     activation=None, use_bias=True,
                                      kernel_initializer=initializer)  # N X 1 X 1 X self._action_space_number
             output = tf.layers.flatten(conv5)
 
@@ -286,14 +288,18 @@ class model(object):
                 val_step = 1
                 valid_total_reward = 0
                 self.val_env.reset()
-                before_scene, _, _ = self._concat_state(env = self.val_env, action=np.random.randint(self._action_space_number))
+                before_scene, _, _ = self._concat_state(env=self.val_env,
+                                                        action=np.random.randint(self._action_space_number))
 
                 while True:
                     self.val_env.render()
                     valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [before_scene]})
-                    next_scene, valid_reward, valid_gamestate = self._concat_state(env = self.val_env, action=np.argmax(valid_action))
+                    next_scene, valid_reward, valid_gamestate = self._concat_state(env=self.val_env,
+                                                                                   action=np.argmax(valid_action))
                     before_scene = next_scene
-                    print("게임 step {} -> reward :{}".format(val_step, valid_reward))
+                    # 점수를 받은 부분만 표시하
+                    if valid_reward != 0:
+                        print("게임 step {} -> reward :{}".format(val_step, valid_reward))
                     if valid_gamestate:
                         print("total reward : {}\n".format(valid_total_reward))
                         break
@@ -303,20 +309,19 @@ class model(object):
                 self.val_env.close()
 
             if gamestate:
-
                 self.env.reset()
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size , 처음에 무작위로 이동
-                state, _, _ = self._concat_state(env= self.env, action=np.random.randint(self._action_space_number))
+                state, _, _ = self._concat_state(env=self.env, action=np.random.randint(self._action_space_number))
 
             # 온라인 DQN을 시작한다.
             online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [state]})
             action = self._epsilon_greedy(online_Qvalue, step)
 
             # 다음 상태의 연속된 관측을 연결하기
-            next_state, reward, gamestate = self._concat_state(env = self.env, action=action)
+            next_state, reward, gamestate = self._concat_state(env=self.env, action=action)
 
             # # reward -1, 0, 1로 제한하기
-            # reward = np.clip(reward, a_min=-1, a_max=1)
+            reward = np.clip(reward, a_min=-1, a_max=1)
 
             ''' 
             재현 메모리 실행
@@ -414,18 +419,20 @@ class model(object):
             total_reward = 0
             frames = []
             self.env.reset()
-            before_scene, _, _ = self._concat_state(env = self.env, action=np.random.randint(self._action_space_number))
+            before_scene, _, _ = self._concat_state(env=self.env, action=np.random.randint(self._action_space_number))
 
             while True:
 
+                time.sleep(1 / 30)  # 30fps
                 self.env.render()
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
                 action = sess.run(online_Qvalue, feed_dict={state: [before_scene]})
-                next_scene, reward, gamestate = self._concat_state(env = self.env, action=np.argmax(action))
+                next_scene, reward, gamestate = self._concat_state(env=self.env, action=np.argmax(action))
                 before_scene = next_scene
-                print("게임 step {} -> reward :{}".format(step, reward))
+                if reward != 0:
+                    print("게임 step {} -> reward :{}".format(step, reward))
 
                 if gamestate:
                     print("total reward : {}".format(total_reward))

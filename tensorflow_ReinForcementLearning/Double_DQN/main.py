@@ -41,8 +41,8 @@ for i, GL in enumerate(GPU_List):
 
 Atari = model(
     # https://gym.openai.com/envs/#atari
-    # ex) Tennis-v0, Pong-v0, BattleZone-v0
-    model_name="Atlantis-v0",
+    # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
+    model_name="PongDeterministic-v4",
     training_display=(True, 10000),
     training_step=10000000,
     training_start_point=10000,
