@@ -84,19 +84,19 @@
                 * 2가지의 데이터 전처리 방법  
                     1. 효율적인 데이터 전처리를 위해 tf.data.Dataset을 사용할 수 있습니다.(tf.data.Dataset로 처리된 데이터를 그래프 구조 안에 포함시킵니다.)
                     2. 더 효율적인 데이터 전처리를 위해 TFRecord 형식으로 데이터를 저장하고  tf.data.TFRecordDataset 를 사용할 수 있습니다.
-                * tf.train.Saver().export_meta_graph API 와 tf.train.import_meta_graph API를 사용하여 Training, Test 코드를 각각 실행합니다.(그래프파일인 meta파일을 저장하여 Test시 불러옵니다.)
-                * 256x256 크기 이상의 서로 다른 크기의 이미지들을 동시에 학습 할 수 있습니다.
+                * tf.train.Saver().export_meta_graph API 와 tf.train.import_meta_graph API를 사용하여 Training, Test 코드를 각각 실행합니다.(그래프파                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 일인 meta파일을 저장하여 Test                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari)  불러옵니다.)
+                * 256x256 크기 이상의 서                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari)  다른 크기의 이미지들을 동시에 학습 할 수 있습니다.
                     * 256x256 크기의 이미지로 학습한 생성 네트워크에 512x512 크기의 이미지를 입력으로 넣어 성능을 평가하기 위한 기능입니다. 다양한 크기의 이미지를 동시에 학습하는 것도 가능합니다. ( 관련 내용 : [Image To Image Translation With Conditional Adversarial Networks Using edges2shoes Dataset 논문의 7p 참고](https://arxiv.org/pdf/1611.07004.pdf))
-
-        * ### **Reinforcement Learning from Hands-On ML**
+                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari) from                 * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
             * [***Policy Gradient with CartPole- only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/PG_CartPole) 
                 * 카트 위에 놓인 막대가 넘어지지 않도록 왼쪽 또는 오른쪽으로 가속시키는 2D 시뮬레이션입니다.
                 * 일단 에피소드를 몇 번 진행해보고 이를 평균내어 학습합니다.
                     * 몬테카를로 정책 그라디언트(Monte Carlo Policy Gradient) 방법입니다. 
                     
-            * [***Double Q-learning - only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/DoubleQL_BreakOut)
+            * [***Double Q-learning - only Ubuntu Linux***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/Double_DQN)
                 * Double Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
-                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+                * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 

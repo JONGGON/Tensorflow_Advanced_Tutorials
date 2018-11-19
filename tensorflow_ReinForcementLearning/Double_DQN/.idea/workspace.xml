@@ -178,31 +178,31 @@
     <session id="-1341835729">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.3" value="2" />
-          <entry key="project.open.time.5" value="3" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.open.time.3" value="6" />
+          <entry key="project.open.time.5" value="5" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="861" />
+          <entry key="py" value="1376" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="861" />
+          <entry key="Python" value="1376" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="1" />
+          <entry key="py" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="1" />
+          <entry key="Python" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -212,8 +212,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+            <state relative-caret-position="782">
+              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -224,20 +224,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DDQN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="325" column="24" lean-forward="true" selection-start-line="325" selection-start-column="24" selection-end-line="325" selection-end-column="24" />
+            <state relative-caret-position="794">
+              <caret line="317" selection-start-line="317" selection-end-line="318" selection-end-column="57" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/core.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4035">
-              <caret line="273" column="8" selection-start-line="273" selection-start-column="8" selection-end-line="273" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -253,19 +244,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>padding</find>
-      <find>kernel_size</find>
-      <find>self.action_space</find>
-      <find>feed_dict</find>
-      <find>model_name</find>
       <find>model_path</find>
       <find>_action_space_number</find>
       <find>target_Qvalue</find>
       <find>online_Qvalue</find>
-      <find>self.rewards</find>
       <find>Graph</find>
       <find>self.Done</find>
-      <find>self.action</find>
       <find>kernel_initializer</find>
       <find>var_list</find>
       <find>adam</find>
@@ -281,8 +265,15 @@
       <find>display</find>
       <find>self.cpFromOnlinetoTarget</find>
       <find>training_display</find>
-      <find>self.env</find>
       <find>self.val_env</find>
+      <find>self.action</find>
+      <find>self.gamelength</find>
+      <find>gamelength</find>
+      <find>reward</find>
+      <find>self.rewards</find>
+      <find>self.env</find>
+      <find>_concat_state</find>
+      <find>env</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -292,15 +283,15 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../code/Heightof4wayToHeightof8way.py" />
-        <option value="$PROJECT_DIR$/DDQN.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/DDQN.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="310" />
-    <option name="y" value="204" />
-    <option name="width" value="1379" />
+    <option name="x" value="725" />
+    <option name="y" value="328" />
+    <option name="width" value="1339" />
     <option name="height" value="789" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -309,18 +300,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="MsPacman" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MsPacman" type="462c0819:PsiDirectoryNode" />
+              <item name="DoubleQL_BreakOut" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DoubleQL_BreakOut" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -411,13 +402,13 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1377802" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11809732" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.4025974" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.44177672" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -484,13 +475,11 @@
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/platform.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/psutil/__init__.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/cv2/cv2/__init__.py" />
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/numpy/random/mtrand.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/cv2/cv2/VideoWriter.py" />
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/tensorflow/python/layers/core.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/keras/layers/core.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/gen_array_ops.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/layers/core.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/matplotlib/animation.py" />
     <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/builtins.py" />
@@ -507,15 +496,29 @@
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/wrappers/time_limit.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4035">
+        <state relative-caret-position="777">
           <caret line="273" column="8" selection-start-line="273" selection-start-column="8" selection-end-line="273" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-924082692/numpy/random/mtrand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="2018" column="4" selection-start-line="2018" selection-start-column="4" selection-end-line="2018" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1763" column="4" selection-start-line="1763" selection-start-column="4" selection-end-line="1763" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+        <state relative-caret-position="782">
+          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -524,8 +527,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DDQN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="325" column="24" lean-forward="true" selection-start-line="325" selection-start-column="24" selection-end-line="325" selection-end-column="24" />
+        <state relative-caret-position="794">
+          <caret line="317" selection-start-line="317" selection-end-line="318" selection-end-column="57" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

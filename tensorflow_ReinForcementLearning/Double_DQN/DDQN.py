@@ -43,7 +43,7 @@ class model(object):
 
     def __init__(self,
                  model_name="Breakout-v0",
-                 training_display=10000,
+                 training_display=(True, 10000),
                  training_step=200000000,
                  training_start_point=10000,
                  training_interval=4,
@@ -64,10 +64,13 @@ class model(object):
 
         # 환경 만들기
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
+
         self.env = gym.make(model_name)
         self.val_env = gym.make(model_name)
 
-        self.training_display = training_display
+        self.display = training_display[0]
+        self.display_step = training_display[1]
+
         self.SaveGameMovie = SaveGameMovie
 
         # 학습 하이퍼파라미터
@@ -133,17 +136,15 @@ class model(object):
 
     # DDQN의 연산량을 줄이고 훈련속도를 향상시키기
     def _data_preprocessing(self, obs):
-
         # 84 x 84 gray로 만들기
         obs = cv2.cvtColor(obs, cv2.COLOR_BGR2GRAY)
-        obs = cv2.resize(obs, dsize=(84, 84))
-        obs = np.subtract(obs, 128.0)
-        return obs.astype(np.int8)
+        obs = cv2.resize(obs, dsize=(88, 88))
+        return obs.astype(np.uint8)
 
-    def _concat_state(self, action):
+    def _concat_state(self, env, action):
         concator = []
         for _ in range(self.framesize):
-            obs, reward, gamestate, info = self.env.step(action)
+            obs, reward, gamestate, info = env.step(action)
             concator.append(self._data_preprocessing(obs))
         state = np.transpose(concator, axes=(1, 2, 0))
         return state, reward, gamestate
@@ -153,18 +154,22 @@ class model(object):
         # N X 84 x 84 x 4
         initializer = tf.contrib.layers.variance_scaling_initializer()
         with tf.variable_scope(name) as scope:
-            conv1 = tf.layers.conv2d(inputs=inputs, filters=32, kernel_size=(8, 8), strides=(4, 4), padding='valid',
+            conv1 = tf.layers.conv2d(inputs=inputs, filters=32, kernel_size=(4, 4), strides=(2, 2), padding='same',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 20 X 20 X 32
-            conv2 = tf.layers.conv2d(inputs=conv1, filters=64, kernel_size=(4, 4), strides=(2, 2), padding='valid',
+                                     kernel_initializer=initializer)  # N X 44 X 44 X 32
+            conv2 = tf.layers.conv2d(inputs=conv1, filters=64, kernel_size=(4, 4), strides=(2, 2), padding='same',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 9 X 9 X 64
-            conv3 = tf.layers.conv2d(inputs=conv2, filters=64, kernel_size=(3, 3), strides=(1, 1), padding='valid',
+                                     kernel_initializer=initializer)  # N X 22 X 22 X 64
+            conv3 = tf.layers.conv2d(inputs=conv2, filters=128, kernel_size=(4, 4), strides=(2, 2), padding='same',
                                      activation=tf.nn.relu, use_bias=True,
-                                     kernel_initializer=initializer)  # N X 7 X 7 X 64
-            flatten_conv3 = tf.reshape(conv3, shape=[-1, 7 * 7 * 64])
-            hidden = tf.layers.dense(flatten_conv3, 512, activation=tf.nn.relu, kernel_initializer=initializer)
-            output = tf.layers.dense(hidden, self._action_space_number, kernel_initializer=initializer)
+                                     kernel_initializer=initializer)  # N X 11 X 11 X 128
+            conv4 = tf.layers.conv2d(inputs=conv3, filters=256, kernel_size=(4, 4), strides=(2, 2), padding='same',
+                                     activation=tf.nn.relu, use_bias=True,
+                                     kernel_initializer=initializer)  # N X 6 X 6 X 256
+            conv5 = tf.layers.conv2d(inputs=conv4, filters=self._action_space_number, kernel_size=(6, 6), strides=(1, 1), padding='valid',
+                                     activation=tf.nn.relu, use_bias=True,
+                                     kernel_initializer=initializer)  # N X 1 X 1 X 9
+            output = tf.layers.flatten(conv5)
 
             # train_vars = tf.trainable_variables(scope = scope.name)
             train_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=scope.name)
@@ -178,13 +183,14 @@ class model(object):
 
             # model input
             self.state = tf.placeholder(tf.float32, shape=[None, None, None, self.framesize])
-            self.action = tf.placeholder(tf.float32, shape=None)
+            self.action = tf.placeholder(tf.int32, shape=None)
+
             self.target = tf.placeholder(tf.float32, shape=None)
 
             # tensorboard
             self.rewards = tf.placeholder(tf.float32, shape=None)
             self.Qvalues = tf.placeholder(tf.float32, shape=None)
-            self.gamelength = tf.placeholder(tf.float32, shape=None)
+            self.gamelength = tf.placeholder(tf.int32, shape=None)
 
             with tf.name_scope("online"):
                 self.online_Qvalue, online_var_dictionary = self._DQN(self.state, name="online")
@@ -205,7 +211,7 @@ class model(object):
 
             with tf.name_scope("Loss"):
                 Qvalue = tf.reduce_sum(
-                    tf.multiply(self.online_Qvalue, tf.one_hot(tf.to_int32(self.action), self._action_space_number)),
+                    tf.multiply(self.online_Qvalue, tf.one_hot(self.action, self._action_space_number)),
                     axis=1,
                     keepdims=True)
 
@@ -269,44 +275,48 @@ class model(object):
         gamelength = 0
         totalQvalues = 0
         totalrewards = 0
+        state = None
         gamestate = True  # 게임 초기화 및 게임의 완료 정보를 위함
 
         # 실질적으로 (self.training_step - self.rememorystackNum) 만큼만 학습한다.
-        for step in tqdm(range(self.start, self.training_step + 1, 1)):
+        for step in tqdm(range(self.start, self.training_start_point + self.training_step + 1, 1)):
 
-            if step % self.training_display == 0:
-                print("\n<<< Validation at {} step >>>".format(self.training_display))
+            if step % self.display_step == 0 and self.display:
+                print("\n<<< Validation at {} step >>>".format(step))
                 val_step = 1
                 valid_total_reward = 0
                 self.val_env.reset()
-                before_scene, _, _ = self._concat_state(action=np.random.randint(self._action_space_number))
+                before_scene, _, _ = self._concat_state(env = self.val_env, action=np.random.randint(self._action_space_number))
+
                 while True:
                     self.val_env.render()
                     valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [before_scene]})
-                    next_scene, valid_reward, valid_gamestate = self._concat_state(action=np.argmax(valid_action))
+                    next_scene, valid_reward, valid_gamestate = self._concat_state(env = self.val_env, action=np.argmax(valid_action))
                     before_scene = next_scene
                     print("게임 step {} -> reward :{}".format(val_step, valid_reward))
                     if valid_gamestate:
                         print("total reward : {}\n".format(valid_total_reward))
-                        self.val_env.close()
                         break
                     val_step += 1
                     valid_total_reward += valid_reward
 
+                self.val_env.close()
+
             if gamestate:
+
                 self.env.reset()
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size , 처음에 무작위로 이동
-                state, _, _ = self._concat_state(action=np.random.randint(self._action_space_number))
+                state, _, _ = self._concat_state(env= self.env, action=np.random.randint(self._action_space_number))
 
             # 온라인 DQN을 시작한다.
             online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [state]})
             action = self._epsilon_greedy(online_Qvalue, step)
 
             # 다음 상태의 연속된 관측을 연결하기
-            next_state, reward, gamestate = self._concat_state(action=action)
+            next_state, reward, gamestate = self._concat_state(env = self.env, action=action)
 
-            # reward -1, 0, 1로 제한하기
-            reward = np.clip(reward, a_min=-1, a_max=1)
+            # # reward -1, 0, 1로 제한하기
+            # reward = np.clip(reward, a_min=-1, a_max=1)
 
             ''' 
             재현 메모리 실행
@@ -404,7 +414,7 @@ class model(object):
             total_reward = 0
             frames = []
             self.env.reset()
-            before_scene, _, _ = self._concat_state(action=np.random.randint(self._action_space_number))
+            before_scene, _, _ = self._concat_state(env = self.env, action=np.random.randint(self._action_space_number))
 
             while True:
 
@@ -413,17 +423,18 @@ class model(object):
                 frames.append(frame)
 
                 action = sess.run(online_Qvalue, feed_dict={state: [before_scene]})
-                next_scene, reward, gamestate = self._concat_state(action=np.argmax(action))
+                next_scene, reward, gamestate = self._concat_state(env = self.env, action=np.argmax(action))
                 before_scene = next_scene
                 print("게임 step {} -> reward :{}".format(step, reward))
 
                 if gamestate:
                     print("total reward : {}".format(total_reward))
-                    self.env.close()
                     break
 
                 step += 1
                 total_reward += reward
+
+            self.env.close()
 
             if self.SaveGameMovie:
                 # 애니매이션 만들기
@@ -436,6 +447,7 @@ class model(object):
                                               frames=len(frames),
                                               repeat=True)
 
+                # sudo apt-get install ffmepg 를 하시고 ffmpeg를 사용하기
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
                 # ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
@@ -446,19 +458,19 @@ if __name__ == "__main__":
         # https://gym.openai.com/envs/#atari
         # ex) Tennis-v0, Pong-v0, BattleZone-v0
         model_name="Breakout-v0",
-        training_display=10000,
-        training_step=200000000,
+        training_display=(True, 10000),
+        training_step=10000000,
         training_start_point=10000,
         training_interval=4,
-        rememorystackNum=500000,
-        save_step=10000,
-        copy_step=10000,
+        rememorystackNum=300000,
+        save_step=20000,
+        copy_step=20000,
         framesize=4,  # 입력 상태 개수
         learning_rate=0.00025,
         momentum=0.95,
         egreedy_max=1,
         egreedy_min=0.1,
-        egreedy_step=1000000,
+        egreedy_step=5000000,
         discount_factor=0.99,
         batch_size=64,
         with_replacement=True,
