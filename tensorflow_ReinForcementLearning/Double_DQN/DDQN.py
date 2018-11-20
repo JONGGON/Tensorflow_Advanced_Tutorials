@@ -23,12 +23,19 @@ class ReplacyMemory(object):
         self.length = 0
         self.batch_size = batch_size
         self.with_replacement = with_replacement
+        self.sequence_state = []
 
-    def append(self, data):
+    def remember(self, sequence_state, action, reward, next_state, gamestate):
 
-        self.buffer[self.index] = data
+        self.sequence_state = np.concatenate((sequence_state[:, :, 1:], next_state[:, :, np.newaxis]), axis=-1)
+
+        self.buffer[self.index] = [sequence_state, action, reward, self.sequence_state, gamestate]
         self.length = min(self.length + 1, self.maxlen)
         self.index = (self.index + 1) % self.maxlen
+
+    @property
+    def next_sequence_state(self):
+        return self.sequence_state
 
     @property
     def sample(self):
@@ -65,8 +72,8 @@ class model(object):
         # 환경 만들기
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
 
-        self.env = gym.make(model_name) # train , test
-        self.val_env = gym.make(model_name) # val
+        self.env = gym.make(model_name)  # train , test
+        self.val_env = gym.make(model_name)  # val
 
         self.display = training_display[0]
         self.display_step = training_display[1]
@@ -91,7 +98,7 @@ class model(object):
         self.only_draw_graph = only_draw_graph
 
         # 재현 메모리
-        self.stacked_state = [] # 연속 관측을 담아두기 위한 변수
+        self.stacked_state = []  # 연속 관측을 담아두기 위한 변수
         self.with_replacement = with_replacement
         self.rememorystackNum = rememorystackNum
         self.RM = ReplacyMemory(maxlen=self.rememorystackNum, batch_size=self.batch_size,
@@ -142,10 +149,10 @@ class model(object):
         obs = cv2.resize(obs, dsize=(84, 84))
         return obs.astype(np.uint8)
 
-    def _concat_state(self, state):
-        listed_state = [self._data_preprocessing(state) for _ in range(self.framesize)]
-        stacked_state = np.stack(listed_state, axis=-1)
-        return stacked_state
+    def _concatenated_state(self, state):
+        listed_state = [self._data_preprocessing(state)[:, :, np.newaxis] for _ in range(self.framesize)]
+        concatenated_state = np.concatenate(listed_state, axis=-1)
+        return concatenated_state
 
     def _DQN(self, inputs, name):
 
@@ -281,13 +288,17 @@ class model(object):
                 val_step = 0
                 valid_total_reward = 0
                 val_state = self.val_env.reset()
-                valid_stacked_state = self._concat_state(val_state)
+                valid_sequence_state = self._concatenated_state(val_state)
 
                 while True:
+                    print("in")
                     val_step += 1
                     self.val_env.render()
-                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [valid_stacked_state]})
-                    valid_next_state, valid_reward, valid_gamestate, _ = self.env.step(np.argmax(valid_action))
+                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [valid_sequence_state]})
+                    valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
+                    valid_sequence_state = np.concatenate((valid_sequence_state[:, :, 1:],
+                                                           self._data_preprocessing(valid_next_state)[:, :,
+                                                           np.newaxis]), axis=-1)
                     valid_total_reward += valid_reward
 
                     # 점수를 받은 부분만 표시하기
@@ -304,10 +315,10 @@ class model(object):
                 totalgame += 1
                 state = self.env.reset()
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
-                self.stacked_state = self._concat_state(state)
+                self.sequence_state = self._concatenated_state(state)
 
             # 온라인 DQN을 시작한다.
-            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.stacked_state]})
+            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.sequence_state]})
             action = self._epsilon_greedy(online_Qvalue, step)
             next_state, action, reward, info = self.env.step(action)
 
@@ -319,8 +330,9 @@ class model(object):
             이는 게임 종료에 해당함으로, gamestate가 0(즉 not True = False = 0)이 되어야 학습할 때 target_Qvalue를 0으로 만들 수 있다.
 
             '''
-            # self.obs 자체가 self.RM.append 됨에 따라 한칸씩 밀린다. - 처음에는 이 부분을 잘 못 이해하고 구현
-            = self.RM.append((self.stacked_state, next_state, action, reward, not gamestate))
+            # 가장 중요한 부분이라고 생각한다. 시간의 흐름을 저장하는 곳!!!
+            self.RM.remember(self.sequence_state, action, reward, self._data_preprocessing(next_state), not gamestate)
+            self.sequence_state = self.RM.next_sequence_state
 
             # 1게임이 얼마나 지속? gamelength, 1게임의 q 가치의 평균 값
             totalrewards += reward
@@ -410,7 +422,7 @@ class model(object):
             total_reward = 0
             frames = []
             state = self.env.reset()
-            stacked_state = self._concat_state(state)
+            sequence_state = self._concatenated_state(state)
 
             while True:
                 step += 1
@@ -420,12 +432,14 @@ class model(object):
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
-                action = sess.run(online_Qvalue, feed_dict={state: [stacked_state]})
+                action = sess.run(online_Qvalue, feed_dict={state: [sequence_state]})
                 next_state, reward, gamestate, _ = self.env.step(np.argmax(action))
                 total_reward += reward
 
                 # 예전의 가장 왼쪽의 프레임 날려버리기
-                stacked_state = np.stack((stacked_state[:,:,:self.framesize-1], self._data_preprocessing(next_state)[:, :, np.newaxis]), axis=-1)
+                sequence_state = np.concatenate(
+                    (sequence_state[:, :, 1:], self._data_preprocessing(next_state)[:, :, np.newaxis]),
+                    axis=-1)
 
                 if reward != 0:
                     print("게임 step {} -> reward :{}".format(step, reward))
@@ -451,6 +465,7 @@ class model(object):
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
                 # ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
+
 
 if __name__ == "__main__":
     Atari = model(

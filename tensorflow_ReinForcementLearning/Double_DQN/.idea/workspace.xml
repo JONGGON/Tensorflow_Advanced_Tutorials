@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="371bab19-ff05-4eca-b3a2-711be4796790" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/MsPacman.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MsPacman.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DDQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DDQN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,42 +211,42 @@
     <session id="1873912812">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="6" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.5" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.5" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="316" />
+          <entry key="py" value="1013" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="316" />
+          <entry key="Python" value="1013" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
+          <entry key="py" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
+          <entry key="Python" value="8" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+            <state relative-caret-position="210">
+              <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -251,11 +254,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DDQN.py" pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DDQN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="452" column="26" lean-forward="true" selection-start-line="452" selection-start-column="26" selection-end-line="452" selection-end-column="26" />
+            <state relative-caret-position="265">
+              <caret line="440" column="66" lean-forward="true" selection-start-line="440" selection-start-column="66" selection-end-line="440" selection-end-column="66" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -263,29 +266,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shape_base.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/core/shape_base.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/wrappers/time_limit.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5510">
-              <caret line="290" column="4" selection-start-line="290" selection-start-column="4" selection-end-line="290" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shape_base.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/lib/shape_base.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4598">
-              <caret line="254" column="4" selection-start-line="254" selection-start-column="4" selection-end-line="254" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="time_limit.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/wrappers/time_limit.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="46" />
+            <state relative-caret-position="284">
+              <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -301,11 +286,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>model_path</find>
-      <find>_action_space_number</find>
-      <find>target_Qvalue</find>
-      <find>online_Qvalue</find>
-      <find>Graph</find>
       <find>self.Done</find>
       <find>kernel_initializer</find>
       <find>var_list</find>
@@ -330,7 +310,12 @@
       <find>self.rewards</find>
       <find>self.env</find>
       <find>env</find>
+      <find>clear_devices</find>
+      <find>stack</find>
+      <find>np.stack</find>
+      <find>np.newaxis</find>
       <find>_concat_state</find>
+      <find>self.stacked_state</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -340,16 +325,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../code/Heightof4wayToHeightof8way.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/DDQN.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="364" />
+    <option name="y" value="131" />
+    <option name="width" value="1318" />
+    <option name="height" value="789" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -406,6 +391,9 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MsPacman" />
@@ -425,6 +413,9 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.DDQN" />
@@ -451,64 +442,60 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11801897" />
-      <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.22727273" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.05795517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.3073593" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.44177672" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="right" id="R Packages" order="4" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.013121924" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.18290043" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
-      <window_info anchor="right" id="R Packages" order="4" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.18290043" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.44177672" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="right" id="R Packages" order="4" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/tensorflow/python/ops/variables.py" />
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/core.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/math_ops.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/control_flow_ops.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/losses/losses_impl.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/training/checkpoint_management.py" />
     <entry file="file://$PROJECT_DIR$/../code/main.py" />
     <entry file="file://$PROJECT_DIR$/../code/Heightof4wayToHeightof8way.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/training/saver.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/numeric.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/summary/summary.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/array_ops.py" />
@@ -520,7 +507,6 @@
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/variables.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/eager/backprop.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/training/optimizer.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/wrappers/time_limit.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/training/adam.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/platform.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/psutil/__init__.py" />
@@ -546,43 +532,53 @@
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/ops/gen_array_ops.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/layers/core.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py" />
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/wrappers/time_limit.py">
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/wrappers/time_limit.py" />
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/lib/shape_base.py" />
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/core/shape_base.py" />
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/tensorflow/python/training/saver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="46" />
+        <state relative-caret-position="24210">
+          <caret line="1652" column="17" selection-start-line="1652" selection-start-column="4" selection-end-line="1652" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/lib/function_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="4475" column="4" selection-start-line="4475" selection-start-column="4" selection-end-line="4475" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/lib/shape_base.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/shape_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4598">
-          <caret line="254" column="4" selection-start-line="254" selection-start-column="4" selection-end-line="254" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/numpy/core/shape_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5510">
+        <state relative-caret-position="126">
           <caret line="290" column="4" selection-start-line="290" selection-start-column="4" selection-end-line="290" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/wrappers/time_limit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DDQN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="452" column="26" lean-forward="true" selection-start-line="452" selection-start-column="26" selection-end-line="452" selection-end-column="26" />
+        <state relative-caret-position="265">
+          <caret line="440" column="66" lean-forward="true" selection-start-line="440" selection-start-column="66" selection-end-line="440" selection-end-column="66" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
