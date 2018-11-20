@@ -144,6 +144,7 @@ class model(object):
 
     # DDQN의 연산량을 줄이고 훈련속도를 향상시키기
     def _data_preprocessing(self, obs):
+
         # 84 x 84 gray로 만들기
         obs = cv2.cvtColor(obs, cv2.COLOR_BGR2GRAY)
         obs = cv2.resize(obs, dsize=(84, 84))
@@ -267,6 +268,9 @@ class model(object):
         else:
             self.start = 1
 
+    def _normalizaiton(self, value = None, factor = 255.0):
+        return np.divide(value, factor)
+
     @property
     def train(self):
 
@@ -289,12 +293,12 @@ class model(object):
                 valid_total_reward = 0
                 valid_sequence_state = self._concatenated_state(self.val_env.reset())
 
-                while True:
-
+                for _ in range(100):
                     val_step += 1
                     time.sleep(1 / 30)  # 30fps
+
                     self.val_env.render()
-                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [valid_sequence_state]})
+                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
                     valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
                     valid_sequence_state = np.concatenate((valid_sequence_state[:, :, 1:],
                                                            self._data_preprocessing(valid_next_state)[:, :,
@@ -316,8 +320,8 @@ class model(object):
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
                 self.sequence_state = self._concatenated_state(self.env.reset())
 
-            # 온라인 DQN을 시작한다.
-            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.sequence_state]})
+            # 온라인 DQN을 시작한다. / 왜 normalization을 하는 것인가? scale을 맞춰주는것!!! - 반드시 필요하다.
+            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: self._normalizaiton([self.sequence_state])})
             action = self._epsilon_greedy(online_Qvalue, step)
             next_state, reward, gamestate, _ = self.env.step(action)
 
@@ -345,13 +349,13 @@ class model(object):
 
             sampled_state, sampled_action, sampled_reward, sampled_next_state, continues = self._sample_memories
 
-            target_Qvalue = self.sess.run(self.target_Qvalue, feed_dict={self.state: sampled_next_state})
+            target_Qvalue = self.sess.run(self.target_Qvalue, feed_dict={self.state: self._normalizaiton(sampled_next_state)})
             target_Qvalue = sampled_reward + continues * self.discount_factor * np.max(target_Qvalue, axis=1,
                                                                                        keepdims=True)
 
             # 훈련
             _, loss = self.sess.run([self.train_operation, self.loss],
-                                    feed_dict={self.state: sampled_state, self.action: sampled_action,
+                                    feed_dict={self.state: self._normalizaiton(sampled_state), self.action: sampled_action,
                                                self.target: target_Qvalue})
 
             # online DQN -> target DQN으로 복사
@@ -363,7 +367,7 @@ class model(object):
 
                 # 학습 과정은 Tensorboard에서 확인하자
                 summary_str = self.sess.run(self.summary_operation,
-                                            feed_dict={self.state: sampled_state, self.action: sampled_action,
+                                            feed_dict={self.state: self._normalizaiton(sampled_state), self.action: sampled_action,
                                                        self.target: target_Qvalue, self.rewards: totalrewards,
                                                        self.gamelength: gamelength, self.Qvalues: totalQvalues})
                 self.summary_writer.add_summary(summary_str, global_step=step)
@@ -425,14 +429,13 @@ class model(object):
             while True:
 
                 step += 1
-
                 time.sleep(1 / 30)  # 30fps
                 self.env.render()
 
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
-                action = sess.run(online_Qvalue, feed_dict={state: [sequence_state]})
+                action = sess.run(online_Qvalue, feed_dict={state: self._normalizaiton([sequence_state])})
                 next_state, reward, gamestate, _ = self.env.step(np.argmax(action))
                 total_reward += reward
 
