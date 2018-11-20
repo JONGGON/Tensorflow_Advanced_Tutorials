@@ -40,5 +40,5 @@ CP =CartPole(model_name="CartPole", epoch=1000, gradient_update=10, learning_rat
          discount_factor=0.95, save_weight=100, save_path="CartPole", only_draw_graph=False)
 
 
-#CP.train #학습
+CP.train #학습
 CP.test # 테스트

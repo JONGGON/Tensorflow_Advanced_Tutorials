@@ -1,10 +1,9 @@
 import glob
-import os
-
 import gym
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import tensorflow as tf
 from tqdm import *
 
@@ -21,7 +20,8 @@ PG 알고리즘 : 높은 보상을 얻는 방향의 그라디언트로 정책의
 
 class CartPole(object):
 
-    def __init__(self, model_name="CartPole", epoch=1000, gradient_update=10, learning_rate=0.01, training_display=True, SaveGameMovie=True,
+    def __init__(self, model_name="CartPole", epoch=1000, gradient_update=10, learning_rate=0.01, training_display=True,
+                 SaveGameMovie=True,
                  discount_factor=0.95, save_weight=100, save_path="CartPole", only_draw_graph=False):
 
         self.env = gym.make("CartPole-v1")
@@ -150,15 +150,15 @@ class CartPole(object):
             all_rewards = []
             all_gradients = []
             total_reward = 0
-            for _  in range(self.gradient_update):
+            for _ in range(self.gradient_update):
                 current_rewards = []
                 current_gradients = []
                 obs = self.env.reset()
+
                 while True:
-
                     if self.training_display:
+                        time.sleep(1 / 30)  # 30fps
                         self.env.render()
-
                     # action = tf.multinomial(tf.log(p_left_and_right), num_samples=1) 가 2차원 배열로 반환!!!
                     action_val, gradients_val = self.sess.run([self.action, self.gradients],
                                                               feed_dict={self.x: obs.reshape(1, self.n_input)})
@@ -172,6 +172,7 @@ class CartPole(object):
                         print("<<< 보상 : {}>>>".format(total_reward))
                         total_reward = 0
                         break
+
                 # self.update_periods(ex) 10 게임) 마다 보상과 그라디언트를 append 한다.
                 all_rewards.append(current_rewards)
                 all_gradients.append(current_gradients)
@@ -243,23 +244,21 @@ class CartPole(object):
 
             while True:
 
-                if self.training_display:
-                    self.env.render()
-
+                step += 1
+                time.sleep(1 / 30)  # 30fps
+                self.env.render()
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
                 action_val = sess.run(action, feed_dict={x: obs.reshape(1, self.n_input)})
                 obs, reward, done, _ = self.env.step(action_val[0][0])
                 print("게임 step {} -> reward : {}".format(step, reward))
+                total_reward += reward
 
                 if done:
-                    print("total reward : {}".format(total_reward+1))
+                    print("total reward : {}".format(total_reward + 1))
                     self.env.close()
                     break
-
-                step += 1
-                total_reward += reward
 
             if self.SaveGameMovie:
                 # 그림 그리기
@@ -272,10 +271,11 @@ class CartPole(object):
                                               frames=len(frames),
                                               repeat=True)
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
-                #ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
+                # ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
 
 
 if __name__ == "__main__":
-    CartPole(model_name="CartPole", epoch=1, gradient_update=10, learning_rate=0.01, training_display=True, SaveGameMovie=True,
+    CartPole(model_name="CartPole", epoch=1, gradient_update=10, learning_rate=0.01, training_display=True,
+             SaveGameMovie=True,
              discount_factor=0.95, save_weight=100, save_path="CartPole", only_draw_graph=False)

@@ -2,33 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="784070d3-2501-4804-9490-b5c298560a48" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/MsPacman.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/libraries/R_User_Library.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/DDQN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DoubleQL/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/ReinforcementLearning.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/libraries/R_User_Library.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-100.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-100.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-200.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Cartpole.ckpt-200.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/Graph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/CartPole/checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PG/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Double_DQN/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Double_DQN/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Double_DQN/DDQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Double_DQN/DDQN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CartPole.py" beforeDir="false" afterPath="$PROJECT_DIR$/CartPole.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,14 +167,33 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-696015150">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="39" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="39" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
+            <state relative-caret-position="528">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -207,8 +204,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CartPole.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="275" column="26" lean-forward="true" selection-start-line="275" selection-start-column="26" selection-end-line="275" selection-end-column="26" />
+            <state relative-caret-position="270">
+              <caret line="169" column="59" lean-forward="true" selection-start-line="169" selection-start-column="59" selection-end-line="169" selection-end-column="59" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -254,11 +251,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="121" />
-    <option name="y" value="172" />
-    <option name="width" value="1389" />
-    <option name="height" value="789" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-11" />
+    <option name="width" value="980" />
+    <option name="height" value="1230" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -266,7 +262,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -278,10 +273,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Double_DQN" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RunDashboard">
@@ -365,10 +361,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="-7" y="0" width="653" height="820" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12957901" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -428,17 +424,11 @@
       </provider>
     </entry>
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/gym/core.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/matplotlib/animation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="1020" selection-start-line="1020" selection-end-line="1020" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/matplotlib/animation.py" />
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
+        <state relative-caret-position="528">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
@@ -447,8 +437,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CartPole.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="275" column="26" lean-forward="true" selection-start-line="275" selection-start-column="26" selection-end-line="275" selection-end-column="26" />
+        <state relative-caret-position="270">
+          <caret line="169" column="59" lean-forward="true" selection-start-line="169" selection-start-column="59" selection-end-line="169" selection-end-column="59" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
