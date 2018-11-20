@@ -293,14 +293,15 @@ class model(object):
                     next_scene, valid_reward, valid_gamestate = self._concat_state(env=self.val_env,
                                                                                    action=np.argmax(valid_action))
                     before_scene = next_scene
-                    # 점수를 받은 부분만 표시하
+                    val_step += 1
+                    valid_total_reward += valid_reward
+
+                    # 점수를 받은 부분만 표시하기
                     if valid_reward != 0:
                         print("게임 step {} -> reward :{}".format(val_step, valid_reward))
                     if valid_gamestate:
                         print("total reward : {}\n".format(valid_total_reward))
                         break
-                    val_step += 1
-                    valid_total_reward += valid_reward
 
                 self.val_env.close()
 
@@ -426,6 +427,9 @@ class model(object):
 
                 action = sess.run(online_Qvalue, feed_dict={state: [before_scene]})
                 next_scene, reward, gamestate = self._concat_state(env=self.env, action=np.argmax(action))
+                step += 1
+                total_reward += reward
+
                 before_scene = next_scene
                 if reward != 0:
                     print("게임 step {} -> reward :{}".format(step, reward))
@@ -433,9 +437,6 @@ class model(object):
                 if gamestate:
                     print("total reward : {}".format(total_reward))
                     break
-
-                step += 1
-                total_reward += reward
 
             self.env.close()
 
@@ -459,24 +460,24 @@ class model(object):
 if __name__ == "__main__":
     Atari = model(
         # https://gym.openai.com/envs/#atari
-        # ex) Tennis-v0, Pong-v0, BattleZone-v0
-        model_name="Breakout-v0",
-        training_display=(True, 10000),
-        training_step=10000000,
+        # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
+        model_name="BreakoutDeterministic-v4",
+        training_display=(True, 5000),
+        training_step=200000000,
         training_start_point=10000,
         training_interval=4,
-        rememorystackNum=300000,
-        save_step=20000,
-        copy_step=20000,
+        rememorystackNum=500000,
+        save_step=10000,
+        copy_step=10000,
         framesize=4,  # 입력 상태 개수
         learning_rate=0.00025,
         momentum=0.95,
         egreedy_max=1,
         egreedy_min=0.1,
-        egreedy_step=5000000,
+        egreedy_step=1000000,
         discount_factor=0.99,
-        batch_size=64,
-        with_replacement=True,
+        batch_size=32,
+        with_replacement=False,
         only_draw_graph=False,  # model 초기화 하고 연산 그래프 그리기
         SaveGameMovie=True)
 

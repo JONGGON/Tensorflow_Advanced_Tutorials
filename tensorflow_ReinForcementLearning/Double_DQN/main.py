@@ -42,23 +42,23 @@ for i, GL in enumerate(GPU_List):
 Atari = model(
     # https://gym.openai.com/envs/#atari
     # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
-    model_name="PongDeterministic-v4",
+    model_name="BreakoutDeterministic-v4",
     training_display=(True, 5000),
-    training_step=100000000,
-    training_start_point=20000,
+    training_step=200000000,
+    training_start_point=10000,
     training_interval=4,
     rememorystackNum=500000,
-    save_step=20000,
-    copy_step=20000,
+    save_step=10000,
+    copy_step=10000,
     framesize=4, # 입력 상태 개수
-    learning_rate=0.0003,
+    learning_rate=0.00025,
     momentum=0.95,
     egreedy_max=1,
-    egreedy_min=0.01,
+    egreedy_min=0.1,
     egreedy_step=1000000,
     discount_factor=0.99,
-    batch_size=64,
-    with_replacement=True,
+    batch_size=32,
+    with_replacement=False,
     only_draw_graph=False, # model 초기화 하고 연산 그래프 그리기
     SaveGameMovie=True)
 
