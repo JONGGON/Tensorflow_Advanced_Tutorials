@@ -291,8 +291,8 @@ class model(object):
                 valid_sequence_state = self._concatenated_state(val_state)
 
                 while True:
-                    print("in")
                     val_step += 1
+
                     self.val_env.render()
                     valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [valid_sequence_state]})
                     valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
