@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="371bab19-ff05-4eca-b3a2-711be4796790" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/DDQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DDQN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -207,21 +208,21 @@
     <session id="1873912812">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.3" value="3" />
           <entry key="project.open.time.5" value="4" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1014" />
+          <entry key="py" value="1054" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1014" />
+          <entry key="Python" value="1054" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -238,11 +239,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
+            <state relative-caret-position="194">
+              <caret line="45" column="31" lean-forward="true" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -250,23 +251,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DDQN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="291" lean-forward="true" selection-start-line="291" selection-end-line="291" />
+            <state relative-caret-position="-2088">
+              <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="29" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/wrappers/time_limit.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -282,8 +274,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.Done</find>
-      <find>kernel_initializer</find>
       <find>var_list</find>
       <find>adam</find>
       <find>gamestate</find>
@@ -312,6 +302,8 @@
       <find>np.newaxis</find>
       <find>_concat_state</find>
       <find>self.stacked_state</find>
+      <find>self.rememorystackNum</find>
+      <find>val_state</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -321,15 +313,15 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../code/Heightof4wayToHeightof8way.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/DDQN.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="364" />
-    <option name="y" value="131" />
-    <option name="width" value="1318" />
+    <option name="x" value="132" />
+    <option name="y" value="77" />
+    <option name="width" value="1308" />
     <option name="height" value="789" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -343,8 +335,13 @@
         <subPane>
           <expand>
             <path>
-              <item name="DoubleQL_BreakOut" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DoubleQL_BreakOut" type="462c0819:PsiDirectoryNode" />
+              <item name="Double_DQN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Double_DQN" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Double_DQN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Double_DQN" type="462c0819:PsiDirectoryNode" />
+              <item name="BreakoutDeterministic-v4_IC4" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -440,13 +437,13 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.05795517" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18698743" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15766738" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32956383" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.3073593" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.32142857" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.44177672" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -552,16 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/gym/wrappers/time_limit.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -571,10 +558,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DDQN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="291" lean-forward="true" selection-start-line="291" selection-end-line="291" />
+        <state relative-caret-position="-2088">
+          <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="29" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="45" column="31" lean-forward="true" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

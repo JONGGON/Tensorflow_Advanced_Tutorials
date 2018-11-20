@@ -28,7 +28,6 @@ class ReplacyMemory(object):
     def remember(self, sequence_state, action, reward, next_state, gamestate):
 
         self.sequence_state = np.concatenate((sequence_state[:, :, 1:], next_state[:, :, np.newaxis]), axis=-1)
-
         self.buffer[self.index] = [sequence_state, action, reward, self.sequence_state, gamestate]
         self.length = min(self.length + 1, self.maxlen)
         self.index = (self.index + 1) % self.maxlen
@@ -101,6 +100,7 @@ class model(object):
         self.stacked_state = []  # 연속 관측을 담아두기 위한 변수
         self.with_replacement = with_replacement
         self.rememorystackNum = rememorystackNum
+
         self.RM = ReplacyMemory(maxlen=self.rememorystackNum, batch_size=self.batch_size,
                                 with_replacement=self.with_replacement)
 
@@ -287,8 +287,7 @@ class model(object):
                 print("\n<<< Validation at {} step >>>".format(step))
                 val_step = 0
                 valid_total_reward = 0
-                val_state = self.val_env.reset()
-                valid_sequence_state = self._concatenated_state(val_state)
+                valid_sequence_state = self._concatenated_state(self.val_env.reset())
 
                 while True:
                     val_step += 1
@@ -313,9 +312,8 @@ class model(object):
             # self.obs 자체가 self.RM.append 됨에 따라 한칸씩 밀린다.
             if gamestate:
                 totalgame += 1
-                state = self.env.reset()
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
-                self.sequence_state = self._concatenated_state(state)
+                self.sequence_state = self._concatenated_state(self.env.reset())
 
             # 온라인 DQN을 시작한다.
             online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.sequence_state]})
@@ -421,8 +419,7 @@ class model(object):
             step = 0
             total_reward = 0
             frames = []
-            state = self.env.reset()
-            sequence_state = self._concatenated_state(state)
+            sequence_state = self._concatenated_state(self.env.reset())
 
             while True:
                 step += 1

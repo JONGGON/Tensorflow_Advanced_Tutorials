@@ -43,7 +43,7 @@ Atari = model(
     # https://gym.openai.com/envs/#atari
     # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
     model_name="BreakoutDeterministic-v4",
-    training_display=(True, 50000),
+    training_display=(True, 100000),
     training_step=200000000,
     training_start_point=10000,
     training_interval=4,
