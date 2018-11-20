@@ -1,14 +1,13 @@
-import glob
-import os
-import shutil
-import time
-
 import cv2
+import glob
 import gym
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+import shutil
 import tensorflow as tf
+import time
 from tqdm import tqdm
 
 
@@ -278,7 +277,7 @@ class model(object):
             shutil.rmtree("tensorboard/{}".format(self.model_name))
         self.summary_writer = tf.summary.FileWriter(os.path.join("tensorboard", self.model_name), self.sess.graph)
 
-        update_counter = 0
+        update_counter = 0 # 학습 횟수 카운터!!!
         gamelength = 0
         totalgame = 0
         totalQvalues = 0
@@ -323,7 +322,7 @@ class model(object):
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
                 self.sequence_state = self._concatenated_state(self.env.reset())
 
-            # 온라인 DQN을 시작한다. / 왜 normalization을 하는 것인가? scale을 맞춰주는것!!! - 반드시 필요하다.
+            # 온라인 DQN을 시작한다. / 왜 normalization을 하는 것인가? scale을 맞춰주는것!!!
             online_Qvalue = self.sess.run(self.online_Qvalue,
                                           feed_dict={self.state: self._normalizaiton([self.sequence_state])})
             action = self._epsilon_greedy(online_Qvalue, step)
@@ -346,10 +345,6 @@ class model(object):
             gamelength += 1
             totalQvalues += (np.max(online_Qvalue) / gamelength)
 
-            # online DQN -> target DQN으로 복사
-            if step % self.copy_step == 0:
-                self.sess.run(self.cpFromOnlinetoTarget)
-
             if step < self.training_start_point or step % self.training_interval != 0:
                 continue
 
@@ -361,14 +356,18 @@ class model(object):
                                           feed_dict={self.state: self._normalizaiton(sampled_next_state)})
             target_Qvalue = sampled_reward + continues * self.discount_factor * np.max(target_Qvalue, axis=1,
                                                                                        keepdims=True)
-            # 훈련
             _, loss = self.sess.run([self.train_operation, self.loss],
                                     feed_dict={self.state: self._normalizaiton(sampled_state),
                                                self.action: sampled_action,
                                                self.target: target_Qvalue})
 
             update_counter += 1
-            # tensorboard 및 가중치 저장
+            # self.copy_step마다 online DQN -> target DQN으로 복사
+            if update_counter % self.copy_step == 0:
+                print("<<< '{}'번째 'online copy' to 'target' >>>".format(update_counter // self.copy_step))
+                self.sess.run(self.cpFromOnlinetoTarget)
+
+            # self.save_step 마다 tensorboard 및 가중치 저장 :
             if update_counter % self.save_step == 0:
 
                 # 학습 과정은 Tensorboard에서 확인하자
