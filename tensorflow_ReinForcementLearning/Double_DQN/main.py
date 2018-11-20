@@ -46,10 +46,12 @@ Atari = model(
     training_display=(True, 100000),
     training_step=200000000,
     training_start_point=10000,
+    # 4번마다 한번씩만 학습 하겠다는 것이다.
+    # -> 4번중 3번은 게임을 진행해보고 4번째에는 그 결과들을 바탕으로 학습을 하겠다는 이야기
     training_interval=4,
     rememorystackNum=500000,
-    save_step=10000, # (training_display / training_interval)번의 가중치 업데이트에서 save_step 마다 저장한다.
-    copy_step=10000,
+    save_step=10000, # 가중치 업데이트의 save_step 마다 저장한다.
+    copy_step=10000, # 가중치 업데이트의 copy_step 마다 저장한다.
     framesize=4, # 입력 상태 개수
     learning_rate=0.00025,
     momentum=0.95,
@@ -58,7 +60,7 @@ Atari = model(
     egreedy_step=1000000,
     discount_factor=0.99,
     batch_size=32,
-    with_replacement=False,
+    with_replacement=True, # True : 중복추출, False : 비중복 추출 
     only_draw_graph=False, # model 초기화 하고 연산 그래프 그리기
     SaveGameMovie=True)
 
