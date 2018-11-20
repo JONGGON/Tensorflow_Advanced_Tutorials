@@ -363,7 +363,7 @@ class model(object):
             update_counter += 1
             # self.copy_step마다 online DQN -> target DQN으로 복사
             if update_counter % self.copy_step == 0:
-                print("<<< '{}'번째 'online copy' to 'target' >>>".format(update_counter // self.copy_step))
+                print("<<< '{}' 번째 'online' copy to 'target' >>>".format(update_counter // self.copy_step))
                 self.sess.run(self.cpFromOnlinetoTarget)
 
             # self.save_step 마다 tensorboard 및 가중치 저장 :
