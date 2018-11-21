@@ -1,13 +1,14 @@
-import cv2
 import glob
+import os
+import shutil
+import time
+
+import cv2
 import gym
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
-import os
-import shutil
 import tensorflow as tf
-import time
 from tqdm import tqdm
 
 
@@ -47,8 +48,8 @@ class ReplacyMemory(object):
 class model(object):
 
     def __init__(self,
-                 model_name="Breakout-v0",
-                 training_display=(True, 10000),
+                 model_name="BreakoutDeterministic-v4",
+                 training_display=(True, 100000),
                  training_step=200000000,
                  training_start_point=10000,
                  training_interval=4,
@@ -62,7 +63,7 @@ class model(object):
                  egreedy_min=0.1,
                  egreedy_step=1000000,
                  discount_factor=0.99,
-                 batch_size=64,
+                 batch_size=32,
                  with_replacement=True,
                  only_draw_graph=False,
                  SaveGameMovie=True):
