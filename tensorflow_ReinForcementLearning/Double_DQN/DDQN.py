@@ -268,7 +268,7 @@ class model(object):
         else:
             self.start = 1
 
-    def _normalizaiton(self, value = None, factor = 255.0):
+    def _normalizaiton(self, value=None, factor=255.0):
         return np.divide(value, factor)
 
     @property
@@ -278,7 +278,7 @@ class model(object):
             shutil.rmtree("tensorboard/{}".format(self.model_name))
         self.summary_writer = tf.summary.FileWriter(os.path.join("tensorboard", self.model_name), self.sess.graph)
 
-        weight_counter = 0
+        update_counter = 0
         gamelength = 0
         totalgame = 0
         totalQvalues = 0
@@ -287,8 +287,6 @@ class model(object):
 
         # 실질적으로 (self.training_step - self.rememorystackNum) 만큼만 학습한다.
         for step in tqdm(range(self.start, self.training_start_point + self.training_step + 1, 1)):
-
-            weight_counter+=1
 
             if step % self.display_step == 0 and self.display:
                 print("\n<<< Validation at {} step >>>".format(step))
@@ -302,7 +300,8 @@ class model(object):
                     time.sleep(1 / 30)  # 30fps
 
                     self.val_env.render()
-                    valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
+                    valid_action = self.sess.run(self.online_Qvalue,
+                                                 feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
                     valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
                     valid_sequence_state = np.concatenate((valid_sequence_state[:, :, 1:],
                                                            self._data_preprocessing(valid_next_state)[:, :,
@@ -325,7 +324,8 @@ class model(object):
                 self.sequence_state = self._concatenated_state(self.env.reset())
 
             # 온라인 DQN을 시작한다. / 왜 normalization을 하는 것인가? scale을 맞춰주는것!!! - 반드시 필요하다.
-            online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: self._normalizaiton([self.sequence_state])})
+            online_Qvalue = self.sess.run(self.online_Qvalue,
+                                          feed_dict={self.state: self._normalizaiton([self.sequence_state])})
             action = self._epsilon_greedy(online_Qvalue, step)
             next_state, reward, gamestate, _ = self.env.step(action)
 
@@ -357,27 +357,31 @@ class model(object):
 
             sampled_state, sampled_action, sampled_reward, sampled_next_state, continues = self._sample_memories
 
-            target_Qvalue = self.sess.run(self.target_Qvalue, feed_dict={self.state: self._normalizaiton(sampled_next_state)})
+            target_Qvalue = self.sess.run(self.target_Qvalue,
+                                          feed_dict={self.state: self._normalizaiton(sampled_next_state)})
             target_Qvalue = sampled_reward + continues * self.discount_factor * np.max(target_Qvalue, axis=1,
                                                                                        keepdims=True)
             # 훈련
             _, loss = self.sess.run([self.train_operation, self.loss],
-                                    feed_dict={self.state: self._normalizaiton(sampled_state), self.action: sampled_action,
+                                    feed_dict={self.state: self._normalizaiton(sampled_state),
+                                               self.action: sampled_action,
                                                self.target: target_Qvalue})
 
+            update_counter += 1
             # tensorboard 및 가중치 저장
-            if weight_counter % self.save_step == 0:
+            if update_counter % self.save_step == 0:
 
                 # 학습 과정은 Tensorboard에서 확인하자
                 summary_str = self.sess.run(self.summary_operation,
-                                            feed_dict={self.state: self._normalizaiton(sampled_state), self.action: sampled_action,
+                                            feed_dict={self.state: self._normalizaiton(sampled_state),
+                                                       self.action: sampled_action,
                                                        self.target: target_Qvalue, self.rewards: totalrewards,
                                                        self.gamelength: gamelength, self.Qvalues: totalQvalues})
-                self.summary_writer.add_summary(summary_str, global_step=step)
+                self.summary_writer.add_summary(summary_str, global_step=update_counter)
 
                 if not os.path.exists(self.model_name):
                     os.makedirs(self.model_name)
-                self.saver.save(self.sess, self.model_name + "/", global_step=step,
+                self.saver.save(self.sess, self.model_name + "/", global_step=update_counter,
                                 write_meta_graph=False)
 
             if gamestate:
