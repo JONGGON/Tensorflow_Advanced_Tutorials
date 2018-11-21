@@ -315,8 +315,12 @@ class model(object):
                         self.val_env.close()
                         break
 
-            # self.obs 자체가 self.RM.append 됨에 따라 한칸씩 밀린다.
             if gamestate:
+
+                totalQvalues = 0
+                gamelength = 0
+                totalrewards = 0
+
                 totalgame += 1
                 # 현재의 연속된 관측을 연결하기 -> 84 x 84 x self.frame_size ,
                 self.sequence_state = self._concatenated_state(self.env.reset())
@@ -381,11 +385,6 @@ class model(object):
                     os.makedirs(self.model_name)
                 self.saver.save(self.sess, self.model_name + "/", global_step=update_counter,
                                 write_meta_graph=False)
-
-            if gamestate:
-                totalQvalues = 0
-                gamelength = 0
-                totalrewards = 0
 
         print("<<< 학습간 전체 게임 횟수 : {} >>>".format(totalgame))
         # 닫기
