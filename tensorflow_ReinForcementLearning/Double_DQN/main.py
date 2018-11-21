@@ -4,6 +4,13 @@ from tensorflow.python.client import device_lib
 
 from DDQN import *
 
+'''
+window 10 에서도 된다.
+pip install gym
+pip install --no-index -f https://github.com/Kojoley/atari-py/releases atari_py # 0.1.1 버전인 atari 이지만 있을 것은 다 있다.
+pip install gym[atari]
+'''
+
 # if platform.system() == "Linux" or platform.system() == "mac":
 #     print("<<< 현재 운영체제 :{} -> 실행 가능 >>>".format(platform.system()))
 #     pass
