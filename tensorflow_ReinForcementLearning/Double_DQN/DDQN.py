@@ -290,8 +290,9 @@ class model(object):
                 valid_sequence_state = self._concatenated_state(self.val_env.reset())
 
                 while True:
-                    val_step += 1
 
+                    val_step += 1
+                    time.sleep(1 / 30)  # 30fps
                     self.val_env.render()
                     valid_action = self.sess.run(self.online_Qvalue, feed_dict={self.state: [valid_sequence_state]})
                     valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
@@ -422,7 +423,9 @@ class model(object):
             sequence_state = self._concatenated_state(self.env.reset())
 
             while True:
+
                 step += 1
+
                 time.sleep(1 / 30)  # 30fps
                 self.env.render()
 
