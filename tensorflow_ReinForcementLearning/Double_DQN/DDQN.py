@@ -318,7 +318,7 @@ class model(object):
             # 온라인 DQN을 시작한다.
             online_Qvalue = self.sess.run(self.online_Qvalue, feed_dict={self.state: [self.sequence_state]})
             action = self._epsilon_greedy(online_Qvalue, step)
-            next_state, action, reward, info = self.env.step(action)
+            next_state, reward, gamestate, _ = self.env.step(action)
 
             # # reward -1, 0, 1로 제한하기
             reward = np.clip(reward, a_min=-1, a_max=1)
