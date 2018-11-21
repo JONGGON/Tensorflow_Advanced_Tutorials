@@ -4,13 +4,13 @@ from tensorflow.python.client import device_lib
 
 from DDQN import *
 
-if platform.system() == "Linux" or platform.system() == "mac":
-    print("<<< 현재 운영체제 :{} -> 실행 가능 >>>".format(platform.system()))
-    pass
-else:
-    print("<<<현재 운영체제 :{} -> 실행 불가능 >>>".format(platform.system()))
-    print("<<< 강제 종료 >>>")
-    exit()
+# if platform.system() == "Linux" or platform.system() == "mac":
+#     print("<<< 현재 운영체제 :{} -> 실행 가능 >>>".format(platform.system()))
+#     pass
+# else:
+#     print("<<<현재 운영체제 :{} -> 실행 불가능 >>>".format(platform.system()))
+#     print("<<< 강제 종료 >>>")
+#     exit()
 
 print("<<< * 한대의 컴퓨터에 여러대의 GPU 가 설치되어 있을 경우 참고할 사항 >>>")
 print(
@@ -55,7 +55,7 @@ Atari = model(
     # https://gym.openai.com/envs/#atari
     # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
     model_name="BreakoutDeterministic-v4",
-    training_display=(True, 100000),
+    training_display=(True, 1000),
     training_step=200000000,
     training_start_point=10000,
     # 4번마다 한번씩만 학습 하겠다는 것이다.

@@ -1,6 +1,9 @@
-from CartPole import *
-from tensorflow.python.client import device_lib
 import platform
+
+from tensorflow.python.client import device_lib
+
+from CartPole import *
+
 # CartPole 은 윈도우 실행 가능
 if platform.system() == "Linux" or platform.system() == "mac":
     print("<<< 현재 운영체제 :{} -> 실행 가능 >>>".format(platform.system()))
@@ -37,8 +40,8 @@ for i, GL in enumerate(GPU_List):
         print(" " + num + ",", end="")
 
 CP =CartPole(model_name="CartPole", epoch=1000, gradient_update=10, learning_rate=0.01, training_display=True, SaveGameMovie=True,
-         discount_factor=0.95, save_weight=100, save_path="CartPole", only_draw_graph=False)
+             discount_factor=0.95, save_weight=100, save_path="CartPole", only_draw_graph=False)
 
 
-CP.train #학습
+#CP.train #학습
 CP.test # 테스트

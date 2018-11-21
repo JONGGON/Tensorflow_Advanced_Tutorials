@@ -1,13 +1,14 @@
-import cv2
 import glob
+import os
+import shutil
+import time
+
+import cv2
 import gym
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
-import os
-import shutil
 import tensorflow as tf
-import time
 from tqdm import tqdm
 
 
@@ -292,13 +293,11 @@ class model(object):
                 val_step = 0
                 valid_total_reward = 0
                 valid_sequence_state = self._concatenated_state(self.val_env.reset())
+                valid_gamestate = False
 
-                # 왜 300으로 제한을 뒀는가? while True로 하면... break 못하는 현상이 발생한다.
-                for _ in range(300):
+                while valid_gamestate != True:
+
                     val_step += 1
-                    time.sleep(1 / 30)  # 30fps
-
-                    self.val_env.render()
                     valid_action = self.sess.run(self.online_Qvalue,
                                                  feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
                     valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
@@ -307,16 +306,17 @@ class model(object):
                                                            np.newaxis]), axis=-1)
                     valid_total_reward += valid_reward
 
+                    self.val_env.render()
+                    time.sleep(1 / 30)  # 30fps
+
                     # 점수를 받은 부분만 표시하기
                     if valid_reward != 0:
                         print("게임 step {} -> reward :{}".format(val_step, valid_reward))
-                    if valid_gamestate:
-                        print("total reward : {}\n".format(valid_total_reward))
-                        self.val_env.close()
-                        break
+
+                print("total reward : {}\n".format(valid_total_reward))
+                self.val_env.close()
 
             if gamestate:
-
                 totalQvalues = 0
                 gamelength = 0
                 totalrewards = 0
@@ -429,12 +429,11 @@ class model(object):
             total_reward = 0
             frames = []
             sequence_state = self._concatenated_state(self.env.reset())
+            gamestate = False
 
-            while True:
+            while gamestate != True:
 
                 step += 1
-                time.sleep(1 / 30)  # 30fps
-                self.env.render()
 
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
@@ -448,13 +447,14 @@ class model(object):
                     (sequence_state[:, :, 1:], self._data_preprocessing(next_state)[:, :, np.newaxis]),
                     axis=-1)
 
+                self.env.render()
+                time.sleep(1 / 30)  # 30fps
+
                 if reward != 0:
                     print("게임 step {} -> reward :{}".format(step, reward))
 
-                if gamestate:
-                    print("total reward : {}".format(total_reward))
-                    self.env.close()
-                    break
+            print("total reward : {}".format(total_reward))
+            self.env.close()
 
             if self.SaveGameMovie:
                 # 애니매이션 만들기

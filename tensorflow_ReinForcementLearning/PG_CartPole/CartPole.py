@@ -1,9 +1,11 @@
 import glob
+import os
+import time
+
 import gym
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 import tensorflow as tf
 from tqdm import *
 
@@ -154,8 +156,10 @@ class CartPole(object):
                 current_rewards = []
                 current_gradients = []
                 obs = self.env.reset()
+                done = False
 
-                while True:
+                while done != True:
+
                     if self.training_display:
                         time.sleep(1 / 30)  # 30fps
                         self.env.render()
@@ -168,10 +172,8 @@ class CartPole(object):
                     # 모든 행동을 다 고려하다니.. 오래 걸릴 수 밖에 없구나...
                     current_rewards.append(reward)
                     current_gradients.append(gradients_val)
-                    if done:
-                        print("<<< 보상 : {}>>>".format(total_reward))
-                        total_reward = 0
-                        break
+                print("<<< 보상 : {}>>>".format(total_reward))
+                total_reward = 0
 
                 # self.update_periods(ex) 10 게임) 마다 보상과 그라디언트를 append 한다.
                 all_rewards.append(current_rewards)
@@ -241,8 +243,9 @@ class CartPole(object):
             step = 1
             total_reward = 0
             frames = []
+            done = False
 
-            while True:
+            while done != True:
 
                 step += 1
                 time.sleep(1 / 30)  # 30fps
@@ -255,10 +258,8 @@ class CartPole(object):
                 print("게임 step {} -> reward : {}".format(step, reward))
                 total_reward += reward
 
-                if done:
-                    print("total reward : {}".format(total_reward + 1))
-                    self.env.close()
-                    break
+            print("total reward : {}".format(total_reward + 1))
+            self.env.close()
 
             if self.SaveGameMovie:
                 # 그림 그리기
