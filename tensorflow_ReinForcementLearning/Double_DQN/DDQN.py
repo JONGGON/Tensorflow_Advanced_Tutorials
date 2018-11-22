@@ -69,11 +69,10 @@ class model(object):
                  SaveGameMovie=True):
 
         # 환경 만들기
+        self.game_name = model_name
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
 
         self.env = gym.make(model_name)  # train , test
-        self.val_env = gym.make(model_name)  # val
-
         self.display = training_display[0]
         self.display_step = training_display[1]
 
@@ -289,32 +288,34 @@ class model(object):
         for step in tqdm(range(self.start, self.training_start_point + self.training_step + 1, 1)):
 
             if step % self.display_step == 0 and self.display:
+
+                val_env = gym.make(self.game_name)  # val
                 print("\n<<< Validation at {} step >>>".format(step))
-                val_step = 0
                 valid_total_reward = 0
-                valid_sequence_state = self._concatenated_state(self.val_env.reset())
-                valid_gamestate = False
+                valid_sequence_state = self._concatenated_state(val_env.reset())
 
-                while valid_gamestate != True:
+                for val_step in range(1, 101, 1):
 
-                    val_step += 1
+                    val_env.render()
+                    time.sleep(1 / 30)  # 30fps
+
                     valid_action = self.sess.run(self.online_Qvalue,
                                                  feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
-                    valid_next_state, valid_reward, valid_gamestate, _ = self.val_env.step(np.argmax(valid_action))
+                    valid_next_state, valid_reward, valid_gamestate, _ = val_env.step(np.argmax(valid_action))
                     valid_sequence_state = np.concatenate((valid_sequence_state[:, :, 1:],
                                                            self._data_preprocessing(valid_next_state)[:, :,
                                                            np.newaxis]), axis=-1)
                     valid_total_reward += valid_reward
 
-                    self.val_env.render()
-                    time.sleep(1 / 30)  # 30fps
-
                     # 점수를 받은 부분만 표시하기
                     if valid_reward != 0:
                         print("게임 step {} -> reward :{}".format(val_step, valid_reward))
 
-                print("total reward : {}\n".format(valid_total_reward))
-                self.val_env.close()
+                    if valid_gamestate:
+                        print("total reward : {}\n".format(valid_total_reward))
+                        break
+
+                val_env.close()
 
             if gamestate:
                 totalQvalues = 0
@@ -425,15 +426,14 @@ class model(object):
                 print("<<< Restore {} checkpoint!!! >>>".format(os.path.basename(ckpt.model_checkpoint_path)))
                 saver.restore(sess, ckpt.model_checkpoint_path)
 
-            step = 0
             total_reward = 0
             frames = []
             sequence_state = self._concatenated_state(self.env.reset())
-            gamestate = False
 
-            while gamestate != True:
+            for step in range(1, 1001, 1):
 
-                step += 1
+                self.env.render()
+                time.sleep(1 / 30)  # 30fps
 
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
@@ -447,13 +447,13 @@ class model(object):
                     (sequence_state[:, :, 1:], self._data_preprocessing(next_state)[:, :, np.newaxis]),
                     axis=-1)
 
-                self.env.render()
-                time.sleep(1 / 30)  # 30fps
-
                 if reward != 0:
                     print("게임 step {} -> reward :{}".format(step, reward))
 
-            print("total reward : {}".format(total_reward))
+                if gamestate:
+                    print("total reward : {}".format(total_reward))
+                    break
+
             self.env.close()
 
             if self.SaveGameMovie:
@@ -477,7 +477,7 @@ if __name__ == "__main__":
     Atari = model(
         # https://gym.openai.com/envs/#atari
         # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
-        model_name="BreakoutDeterministic-v4",
+        model_name="PongDeterministic-v4",
         training_display=(True, 100000),
         training_step=200000000,
         training_start_point=10000,
