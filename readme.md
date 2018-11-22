@@ -53,15 +53,15 @@
             * [***LottoNet***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_AutoencoderLottoNet)
                 * 로또 당첨의 꿈을 이루고자 전방향 신경망을 사용해 단순히 로또 번호를 예측하는 코드입니다.
                 * 네트워크 Graph 구조를 담은 meta 파일을 저장하고 불러오는 코드가 포함되어 있습니다. tensorflow.add_to_collection, tensorflow.get_collection 를 사용합니다.
-                * tf.data.Dataset를 사용합니다. 자신의 데이터를 학습 네트워크에 적합한 형태로 쉽게 처리 할 수 있게 도와주는 API입니다.
-                    * Tensorflow를 처음 시작하는 대부분의 사람들은 Tensorflow가 자체 처리해서 제공하는 MNIST, CIFAR 같은 Toy 데이터들을 사용해 여러 가지 학습 알고리즘들을 공부하게 됩니다. 어느 정도 학습이 진행되면 '나'만의 데이터를 사용해서 어떤 네트워크를 학습시켜보고 싶은데... 어떻게 처리 해야 하지? 조금 쉽게 하는 방법 없나? 라는 의문이 듭니다. 이 의문에 대한 답이 'tf.data.Dataset'에 있습니다.
+   Model With Fixed Length Dataset             * tf.data.Dataset를 사용합니다. 자신의 데이터를 학습 네트워크에 적합한 형태로 쉽게 Model With Fixed Length Dataset처리 할 수 있게 도와주는 API입니다.
+   Model With Fixed Length Dataset                 * Tensorflow를 처음 시작하는 대부분의 사람들은 Tensorflow가 자체 처리해서 Model With Fixed Length Dataset제공하는 MNIST, CIFAR 같은 Toy 데이터들을 사용해 여러 가지 학습 알고리즘들을 Model With Fixed Length Dataset공부하게 됩니다. 어느 정도 학습이 진행되면 '나'만의 데이터를 사용해서 어떤 Model With Fixed Length Dataset네트워크를 학습시켜보고 싶은데... 어떻게 처리 해야 하지? 조금 쉽게 하는 방법 없나?Model With Fixed Length Dataset 라는 의문이 듭니다. 이 의문에 대한 답이 'tf.data.Dataset'에 있습니다.
                 * tf.train.Saver().export_meta_graph API 와 tf.train.import_meta_graph API를 사용하여 Training, Test 코드를 각각 실행합니다.
             * [***Neural Style***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_NeuralStyle)
                 * 내 사진을 예술 작품으로 바꿔주는 유명한 논문인 "A Neural Algorithm of Artistic Style" 의 구현 입니다.
-            * [***Word2Vector SkipGram With TSNE***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_Word2Vector_SkipGram_WithTSNE)
-                * 아무런 관계가 없는 것처럼 표현(one-hot encoding)된 단어들을 낮은 차원의 벡터로 표현함과 동시에 단어간의 관계를 표현하는 방법입니다. Word2Vector에는 CBOW모델과 Skip-Gram 모델이 있습니다. 여기서는 Skip-Gram 모델을 구현합니다.
-                * tf.train.Saver().export_meta_graph API 와 tf.train.import_meta_graph API를 사용하여 Training, Test 코드를 각각 실행합니다.(그래프파일인 meta파일을 저장하여 Test시 불러옵니다.)
-                * Tensorboard Embedding에서 지원하는 PCA, T-SNE와 같은 차원 축소 알고리즘으로 Embedding된 단어들의 관계를 시각화 해봅니다.
+            * [***Word2Vector SkipGram With TSNE***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ApplicatiModel With Fixed Length Dataseton/tensorflow_Word2Vector_SkipGram_WithTSNE)
+   Model With Fixed Length Dataset    * 아무런 관계가 없는 것처럼 표현(one-hot encoding)된 단어들을 낮은 차원의 벡터로 표현함과 동시에 단어간의 관계를 표현하는 방법입니다. Word2Vector에는 CBOW모델과 Skip-Gram 모델이 있습니다. 여기서는 Skip-Gram 모델을 구현합니다.
+   Model With Fixed Length Dataset    * tf.train.Saver().export_meta_graph API 와 tf.train.import_meta_graph API를 사용하여 Training, Test 코드를 각각 실행합니다.(그래프파일인 meta파일을 저장하여 Test시 불러옵니다.)
+   Model With Fixed Length Dataset    * Tensorboard Embedding에서 지원하는 PCA, T-SNE와 같은 차원 축소 알고리즘으로 Embedding된 단어들의 관계를 시각화 해봅니다.
 
             * [***Image To Image Translation With Conditional Adversarial Networks***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_ImageToImageTranslationWithConditionalAdversarialNetworks_Graph)
                 * 어떤 도메인의 이미지의 다른 도메인의 이미지로의 변환이라는 거룩한 목적을 위해 고안된 네트워크입니다. ConditionalGAN 과 UNET을 사용하여 네트워크 구성 합니다.
@@ -88,14 +88,16 @@
                 * 256x256 크기 이상의 서                * 다른 환경에 대해서도 가능합니다.(참고 : https://gym.openai.com/envs/#atari)  다른 크기의 이미지들을 동시에 학습 할 수 있습니다.
                     * 256x256 크기의 이미지로 학습한 생성 네트워크에 512x512 크기의 이미지를 입력으로 넣어 성능을 평가하기 위한 기능입니다. 다양한 크기의 이미지를 동시에 학습하는 것도 가능합니다. ( 관련 내용 : [Image To Image Translation With Conditional Adversarial Networks Using edges2shoes Dataset 논문의 7p 참고](https://arxiv.org/pdf/1611.07004.pdf))
 
-            * [***Policy Gradient with CartPole***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/PG_CartPole) 
-                * 카트 위에 놓인 막대가 넘어지지 않도록 왼쪽 또는 오른쪽으로 가속시키는 2D 시뮬레이션입니다.
-                * 일단 에피소드를 몇 번 진행해보고 이를 평균내어 학습합니다.
-                    * 몬테카를로 정책 그라디언트(Monte Carlo Policy Gradient) 방법입니다. 
+    * ### **Reinforcement Learning**
+
+        * [***Policy Gradient with CartPole***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/PG_CartPole) 
+            * 카트 위에 놓인 막대가 넘어지지 않도록 왼쪽 또는 오른쪽으로 가속시키는 2D 시뮬레이션입니다.
+            * 일단 에피소드를 몇 번 진행해보고 이를 평균내어 학습합니다.
+            * 몬테카를로 정책 그라디언트(Monte Carlo Policy Gradient) 방법입니다. 
                     
-            * [***Double Q-learning***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/Double_DQN)
-                * Double Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
-                * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+        * [***Double Q-learning***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/Double_DQN)
+            * Double Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 
