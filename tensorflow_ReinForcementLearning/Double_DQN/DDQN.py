@@ -488,11 +488,22 @@ class model(object):
 
 
 if __name__ == "__main__":
+    '''
+    구현시 주의 할 점(+ 짜증나는 점 : 학습이 너무 오래 걸린다.)
+
+    1. 시계열 입력 : 공간이 정해져 있고 입력이 한칸씩 왼쪽으로 밀리면 맨 오른쪽에 새로운 '관측'이 추가되는 구조 
+    2. 재현메모리 : 구현이 약간 까다로웠음 / 재현메모리에 들어가는 데이터의 크기는 UINT8 data type이 효율적이며, 실제 학습 데이터로 쓰일 때는 0~1 사이로 정규화 되서 들어 가야 한다.(이게 안되면 학습이 잘 안되는 것 같다.)
+    3. Deterministic ? openai gym에서 게임의 모든 frame을 실행하지 않고 4frame을 건너뛰어서 실행하는 버전!!! 모든 게임의 프레임을 다 볼 필욘 없지 않겠는가???(논문참고^^^)
+    4. save_step, copy_step은 학습이 각각 save_step, copy_step만큼 진행될때 마다 업데이트 되게 하는 변수이다. - training_step은 agent가 총 움직일 횟수를 의미하는 것일 뿐.
+       - 사실 epoch당 1 episode(게임 한판) 구조로도 구현 할 수 있다.(자기 맘이지^^^) 
+    5. Test Code에서도 epsilon-greedy 정책을 사용해야한다는 사실!!! 
+    '''
+
     Atari = model(
         # https://gym.openai.com/envs/#atari
         # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
         model_name="PongDeterministic-v4",
-        training_display=(True, 100000),
+        training_display=(True, 1000000),
         training_step=200000000,
         training_start_point=10000,
         # 4번마다 한번씩만 학습 하겠다는 것이다.
