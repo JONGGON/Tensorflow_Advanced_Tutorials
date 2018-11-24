@@ -293,15 +293,21 @@ class model(object):
                 print("\n<<< Validation at {} step >>>".format(step))
                 valid_total_reward = 0
                 valid_sequence_state = self._concatenated_state(val_env.reset())
+                valid_gamestate = False
+                val_step = 0
 
-                for val_step in range(1, 101, 1):
+                while valid_gamestate != True:
+
+                    val_step += 1
 
                     val_env.render()
                     time.sleep(1 / 30)  # 30fps
 
-                    valid_action = self.sess.run(self.online_Qvalue,
-                                                 feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
-                    valid_next_state, valid_reward, valid_gamestate, _ = val_env.step(np.argmax(valid_action))
+                    online_Qvalue = self.sess.run(self.online_Qvalue,
+                                                  feed_dict={self.state: self._normalizaiton([valid_sequence_state])})
+                    valid_action = self._epsilon_greedy(online_Qvalue, step)
+                    valid_next_state, valid_reward, valid_gamestate, _ = val_env.step(valid_action)
+
                     valid_sequence_state = np.concatenate((valid_sequence_state[:, :, 1:],
                                                            self._data_preprocessing(valid_next_state)[:, :,
                                                            np.newaxis]), axis=-1)
@@ -311,10 +317,7 @@ class model(object):
                     if valid_reward != 0:
                         print("게임 step {} -> reward :{}".format(val_step, valid_reward))
 
-                    if valid_gamestate:
-                        print("total reward : {}\n".format(valid_total_reward))
-                        break
-
+                print("total reward : {}\n".format(valid_total_reward))
                 val_env.close()
 
             if gamestate:
@@ -334,6 +337,7 @@ class model(object):
 
             # # reward -1, 0, 1로 제한하기
             reward = np.clip(reward, a_min=-1, a_max=1)
+
             ''' 
             재현 메모리 실행
             why ? not gamestate -> 1게임이 끝나면, gamestate 는 True(즉, 1)를 반환하는데,
@@ -429,17 +433,30 @@ class model(object):
             total_reward = 0
             frames = []
             sequence_state = self._concatenated_state(self.env.reset())
+            gamestate = False
+            step = 0
 
-            for step in range(1, 1001, 1):
+            while gamestate != True:
 
+                step += 1
                 self.env.render()
                 time.sleep(1 / 30)  # 30fps
 
                 frame = self.env.render(mode="rgb_array")
                 frames.append(frame)
 
-                action = sess.run(online_Qvalue, feed_dict={state: self._normalizaiton([sequence_state])})
-                next_state, reward, gamestate, _ = self.env.step(np.argmax(action))
+                Qvalue = sess.run(online_Qvalue, feed_dict={state: self._normalizaiton([sequence_state])})
+
+                # Test 코드에서도 epsilon_greedy를 사용해야한다.
+                '''
+                Toward Data science 에서...
+                But even during testing, we may maintain ϵ to a small value like 0.05. 
+                A deterministic policy may stuck in a local optimal.- 이게 주 원인!!! 
+                A non-deterministic policy allows us to break out for a chance to reach a better optimal.
+
+                '''
+                action = self._epsilon_greedy(Qvalue, self.egreedy_step)
+                next_state, reward, gamestate, _ = self.env.step(action)
                 total_reward += reward
 
                 # 예전의 가장 왼쪽의 프레임 날려버리기
@@ -450,10 +467,7 @@ class model(object):
                 if reward != 0:
                     print("게임 step {} -> reward :{}".format(step, reward))
 
-                if gamestate:
-                    print("total reward : {}".format(total_reward))
-                    break
-
+            print("total reward : {}".format(total_reward))
             self.env.close()
 
             if self.SaveGameMovie:
