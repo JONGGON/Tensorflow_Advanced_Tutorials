@@ -69,12 +69,16 @@ class model(object):
                  SaveGameMovie=True):
 
         # 환경 만들기
-        if model_name != "BreakoutDeterministic-v4" or model_name != "PongDeterministic-v4":
+        if model_name == "BreakoutDeterministic-v4":
+            print("<<< ""{}"" 게임 환경 >>>".format(model_name))
+        elif model_name != "PongDeterministic-v4":
+            print("<<< ""{}"" 게임 환경 >>>".format(model_name))
+        else:
             print("<<< 실행 불가 >>>")
             print(
                 "<<< 현재의 _data_preprocessing 함수는 ""BreakoutDeterministic-v4"" 와 ""PongDeterministic-v4"" 이 두 게임 환경에 맞게 처리되어 있습니다. >>>")
             print("<<< ""{}"" 게임 환경을 실행하려면 _data_preprocessing 함수의 수정이 필요 합니다. >>>".format(model_name))
-            print("<<< ""{}"" 게임 환경에 알맞게 전처리 함수를 수정해 주세요. 그리고 위의 if문(72 line)에 ""{}"" 게임 환경을 추가해 주세요 >>>".format(
+            print("<<< ""{}"" 게임 환경에 알맞게 전처리 함수를 수정한 후 조건문에 게임 환경을 추가해 주세요 >>>".format(
                 model_name, model_name))
             exit(0)
 
@@ -501,9 +505,9 @@ class model(object):
                                               frames=len(frames),
                                               repeat=True)
 
-                # sudo apt-get install ffmepg 를 하시고 ffmpeg를 사용하기
+                # 리눅스 : sudo apt-get install ffmepg or conda install -c conda-forge ffmpeg
+                # 윈도우 : conda install ffmpeg
                 ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
-                # ani.save("{}.gif".format(self.model_name), writer="imagemagick", fps=30, dpi=100) # 오류 발생함.. 이유는? 모
                 plt.show()
 
 
