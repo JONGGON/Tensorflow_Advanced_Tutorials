@@ -69,6 +69,15 @@ class model(object):
                  SaveGameMovie=True):
 
         # 환경 만들기
+        if model_name != "BreakoutDeterministic-v4" or model_name != "PongDeterministic-v4":
+            print("<<< 실행 불가 >>>")
+            print(
+                "<<< 현재의 _data_preprocessing 함수는 ""BreakoutDeterministic-v4"" 와 ""PongDeterministic-v4"" 이 두 게임 환경에 맞게 처리되어 있습니다. >>>")
+            print("<<< ""{}"" 게임 환경을 실행하려면 _data_preprocessing 함수의 수정이 필요 합니다. >>>".format(model_name))
+            print("<<< ""{}"" 게임 환경에 알맞게 전처리 함수를 수정해 주세요. 그리고 위의 if문(72 line)에 ""{}"" 게임 환경을 추가해 주세요 >>>".format(
+                model_name, model_name))
+            exit(0)
+
         self.game_name = model_name
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
 
@@ -144,10 +153,21 @@ class model(object):
     # DDQN의 연산량을 줄이고 훈련속도를 향상시키기
     def _data_preprocessing(self, obs):
 
+        '''
+        DQN 논문에서...
+        Working directly with raw Atari frames, which are 210 × 160 pixel images with a 128 color palette,
+        can be computationally demanding, so we apply a basic preprocessing step aimed at reducing the
+        input dimensionality. The raw frames are preprocessed by first converting their RGB representation
+        to gray-scale and down-sampling it to a 110×84 image. The final input representation is obtained by
+        cropping an 84 × 84 region of the image that roughly captures the playing area. The final cropping
+        stage is only required because we use the GPU implementation of 2D convolutions from [11], which
+        expects square inputs. For the experiments in this paper, the function φ from algorithm 1 applies this
+        preprocessing to the last 4 frames of a history and stacks them to produce the input to the Q-function.
+        '''
         # 84 x 84 gray로 만들기
         obs = cv2.cvtColor(obs, cv2.COLOR_BGR2GRAY)
-        obs = cv2.resize(obs, dsize=(84, 84))
-        return obs.astype(np.uint8)
+        obs = cv2.resize(obs, dsize=(84, 110))
+        return obs[17:101, :].astype(np.uint8)
 
     def _concatenated_state(self, state):
         listed_state = [self._data_preprocessing(state)[:, :, np.newaxis] for _ in range(self.framesize)]
@@ -501,11 +521,11 @@ if __name__ == "__main__":
 
     Atari = model(
         # https://gym.openai.com/envs/#atari
-        # ex) TennisDeterministic-v0, PongDeterministic-v4, BattleZoneDeterministic-v4, BreakoutDeterministic-v4
-        model_name="PongDeterministic-v4",
-        training_display=(True, 1000000),
-        training_step=200000000,
-        training_start_point=10000,
+        # PongDeterministic-v4 or BreakoutDeterministic-v4
+        model_name="BreakoutDeterministic-v4",
+        training_display=(True, 100000),
+        training_step=1000000,
+        training_start_point=50000,
         # 4번마다 한번씩만 학습 하겠다는 것이다.
         # -> 4번중 3번은 게임을 진행해보고 4번째에는 그 결과들을 바탕으로 학습을 하겠다는 이야기
         training_interval=4,
