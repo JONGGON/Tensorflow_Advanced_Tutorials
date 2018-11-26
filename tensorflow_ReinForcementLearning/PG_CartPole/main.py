@@ -4,14 +4,14 @@ from tensorflow.python.client import device_lib
 
 from CartPole import *
 
-# CartPole 은 윈도우 실행 가능
-if platform.system() == "Linux" or platform.system() == "mac":
-    print("<<< 현재 운영체제 :{} -> 실행 가능 >>>".format(platform.system()))
-    pass
-else:
-    print("<<<현재 운영체제 :{} -> 실행 불가능 >>>".format(platform.system()))
-    print("<<< 강제 종료 >>>")
-    exit()
+# # CartPole 은 윈도우 실행 가능
+# if platform.system() == "Linux" or platform.system() == "mac":
+#     print("<<< 현재 운영체제 :{} -> 실행 가능 >>>".format(platform.system()))
+#     pass
+# else:
+#     print("<<<현재 운영체제 :{} -> 실행 불가능 >>>".format(platform.system()))
+#     print("<<< 강제 종료 >>>")
+#     exit()
 
 print("<<< * 한대의 컴퓨터에 여러대의 GPU 가 설치되어 있을 경우 참고할 사항 >>>")
 print(
