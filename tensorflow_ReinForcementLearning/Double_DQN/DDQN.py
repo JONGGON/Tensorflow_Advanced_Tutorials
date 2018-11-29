@@ -71,7 +71,7 @@ class model(object):
         # 환경 만들기
         if model_name == "BreakoutDeterministic-v4":
             print("<<< ""{}"" 게임 환경 >>>".format(model_name))
-        elif model_name != "PongDeterministic-v4":
+        elif model_name == "PongDeterministic-v4":
             print("<<< ""{}"" 게임 환경 >>>".format(model_name))
         else:
             print("<<< 실행 불가 >>>")
