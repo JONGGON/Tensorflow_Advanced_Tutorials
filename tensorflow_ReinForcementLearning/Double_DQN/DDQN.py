@@ -311,7 +311,7 @@ class model(object):
         # 실질적으로 (self.training_step - self.rememorystackNum) 만큼만 학습한다.
         for step in tqdm(range(self.start, self.training_start_point + self.training_step + 1, 1)):
 
-            if step % self.display_step == 0 and self.display:
+            if (self.training_start_point + step) % self.display_step == 0 and self.display:
 
                 val_env = gym.make(self.game_name)  # val
                 print("\n<<< Validation at {} step >>>".format(step))
@@ -356,7 +356,12 @@ class model(object):
             # 온라인 DQN을 시작한다. / 왜 normalization을 하는 것인가? scale을 맞춰주는것!!!
             online_Qvalue = self.sess.run(self.online_Qvalue,
                                           feed_dict={self.state: self._normalizaiton([self.sequence_state])})
-            action = self._epsilon_greedy(online_Qvalue, step)
+
+            if step < self.training_start_point + 1:
+                action = np.random.randint(self._action_space_number)
+            else:
+                action = self._epsilon_greedy(online_Qvalue, step - self.training_start_point)
+
             next_state, reward, gamestate, _ = self.env.step(action)
 
             # # reward -1, 0, 1로 제한하기
