@@ -249,7 +249,8 @@ class model(object):
                 self.loss = tf.reduce_mean(tf.square(clipped_error) + linear_error)
 
             with tf.name_scope("trainer"):
-                optimizer = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate, momentum=self.momentum)
+                optimizer = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate, momentum=self.momentum,
+                                                      epsilon=1e-2)
                 self.train_operation = optimizer.minimize(self.loss, var_list=trainable_var_list)
                 all_var_list = tf.global_variables()
 
@@ -531,9 +532,9 @@ if __name__ == "__main__":
     Atari = model(
         # https://gym.openai.com/envs/#atari
         # PongDeterministic-v4 or BreakoutDeterministic-v4
-        model_name="BreakoutDeterministic-v4",
-        training_display=(True, 100000),
-        training_step=1000000,
+        model_name="PongDeterministic-v4",
+        training_display=(True, 1000000),
+        training_step=200000000,
         training_start_point=50000,
         # 4번마다 한번씩만 학습 하겠다는 것이다.
         # -> 4번중 3번은 게임을 진행해보고 4번째에는 그 결과들을 바탕으로 학습을 하겠다는 이야기
