@@ -58,7 +58,7 @@ for i, GL in enumerate(GPU_List):
 Atari = model(
     # https://gym.openai.com/envs/#atari
     # PongDeterministic-v4 or BreakoutDeterministic-v4
-    model_name="PongDeterministic-v4",
+    model_name="BreakoutDeterministic-v4",
     training_display=(True, 1000000),
     training_step=200000000,
     training_start_point=50000,
@@ -80,5 +80,5 @@ Atari = model(
     only_draw_graph=False,  # model 초기화 하고 연산 그래프 그리기
     SaveGameMovie=True)
 
-Atari.train  # 학습 하기
+#Atari.train  # 학습 하기
 Atari.test  # 테스트 하기

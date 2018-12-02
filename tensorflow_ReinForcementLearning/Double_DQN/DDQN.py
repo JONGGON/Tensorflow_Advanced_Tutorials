@@ -118,6 +118,7 @@ class model(object):
 
         # DQN 연산그래프 그리기
         self._build_graph()
+        print(self._action_space_number)
 
     def __repr__(self):
         print("{} With DDQN".format(self.model_name))
@@ -249,7 +250,7 @@ class model(object):
                 self.loss = tf.reduce_mean(tf.square(clipped_error) + linear_error)
 
             with tf.name_scope("trainer"):
-                optimizer = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate, momentum=self.momentum)
+                optimizer = tf.train.RMSPropOptimizer(learning_rate=self.learning_rate, momentum=self.momentum, epsilon=1e-2)
                 self.train_operation = optimizer.minimize(self.loss, var_list=trainable_var_list)
                 all_var_list = tf.global_variables()
 
