@@ -33,13 +33,12 @@ print("<<< Ubuntu Terminal 창에서 지정해준 경우, 무조건 GPU : 1대, 
 local_device_protos = device_lib.list_local_devices()
 GPU_List = [x.name for x in local_device_protos if x.device_type == 'GPU']
 # gpu_number_list = []
-print("<<< # 사용 가능한 GPU : {} 대 >>>".format(len(GPU_List)))
-print("<<< # 사용 가능한 GPU 번호 : >>>", end="")
+print("<<< 사용 가능한 GPU : {} 대 >>>".format(len(GPU_List)))
+print("<<< 사용 가능한 GPU 번호 : >>>", end="")
 for i, GL in enumerate(GPU_List):
     num = GL.split(":")[-1]
     # gpu_number_list.append(num)
     if len(GPU_List) - 1 == i:
-
         print(" " + num)
     else:
         print(" " + num + ",", end="")

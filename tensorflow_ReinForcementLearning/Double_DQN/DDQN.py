@@ -70,9 +70,9 @@ class model(object):
 
         # 환경 만들기
         if model_name == "BreakoutDeterministic-v4":
-            print("<<< ""{}"" 게임 환경 >>>".format(model_name))
+            print("\n<<< ""{}"" 게임 환경 >>>".format(model_name))
         elif model_name == "PongDeterministic-v4":
-            print("<<< ""{}"" 게임 환경 >>>".format(model_name))
+            print("\n<<< ""{}"" 게임 환경 >>>".format(model_name))
         else:
             print("<<< 실행 불가 >>>")
             print(
@@ -118,7 +118,6 @@ class model(object):
 
         # DQN 연산그래프 그리기
         self._build_graph()
-        print(self._action_space_number)
 
     def __repr__(self):
         print("{} With DDQN".format(self.model_name))
