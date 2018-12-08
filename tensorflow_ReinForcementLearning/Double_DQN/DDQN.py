@@ -501,7 +501,7 @@ class model(object):
 
             if self.SaveGameMovie:
                 # 애니매이션 만들기
-                fig = plt.figure(figsize=(6, 8))
+                fig = plt.figure(figsize=(2, 3))
                 patch = plt.imshow(frames[0])  # 첫번째 scene 보여주기
                 plt.axis("off")  # 축 제거
                 ani = animation.FuncAnimation(fig,
@@ -512,7 +512,7 @@ class model(object):
 
                 # 리눅스 : sudo apt-get install ffmepg or conda install -c conda-forge ffmpeg
                 # 윈도우 : conda install ffmpeg
-                ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=100)
+                ani.save("{}.mp4".format(self.model_name), writer="ffmpeg", fps=30, dpi=200)
                 plt.show()
 
 
@@ -531,9 +531,9 @@ if __name__ == "__main__":
     Atari = model(
         # https://gym.openai.com/envs/#atari
         # PongDeterministic-v4 or BreakoutDeterministic-v4
-        model_name="BreakoutDeterministic-v4",
-        training_display=(True, 100000),
-        training_step=1000000,
+        model_name="PongDeterministic-v4",
+        training_display=(True, 1000000),
+        training_step=50000000,
         training_start_point=50000,
         # 4번마다 한번씩만 학습 하겠다는 것이다.
         # -> 4번중 3번은 게임을 진행해보고 4번째에는 그 결과들을 바탕으로 학습을 하겠다는 이야기
@@ -553,5 +553,5 @@ if __name__ == "__main__":
         only_draw_graph=False,  # model 초기화 하고 연산 그래프 그리기
         SaveGameMovie=True)
 
-    Atari.train  # 학습 하기
+    # Atari.train  # 학습 하기
     Atari.test  # 테스트 하기
