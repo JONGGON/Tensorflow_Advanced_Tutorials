@@ -417,7 +417,8 @@ class model(object):
 
                 if not os.path.exists(self.model_name):
                     os.makedirs(self.model_name)
-                self.saver.save(self.sess, self.model_name + "/", global_step=update_counter,
+                # step과 맞춰주기 위해(self.START 에 영향을 준다.) np.multiply(update_counter, self.training_interval) 를 한다.
+                self.saver.save(self.sess, self.model_name + "/", global_step=np.multiply(update_counter, self.training_interval),
                                 write_meta_graph=False)
 
         print("<<< 학습간 전체 게임 횟수 : {} >>>".format(totalgame))
