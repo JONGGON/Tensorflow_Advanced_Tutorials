@@ -145,10 +145,9 @@ class model(object):
         return state, action, reward, next_state, gamestate
 
     def _epsilon_greedy(self, Qvalue, step):
-
         # off policy 요소
         # 훈련 스텝 전체에 걸쳐서 epsilon을 1.0 에서 0.1로 감소 시킨다.
-        epsilon = self.egreedy_max - (self.egreedy_max - self.egreedy_min) * (step / self.egreedy_step)
+        epsilon = np.maximum(self.egreedy_min, self.egreedy_max - (self.egreedy_max - self.egreedy_min) * (step / self.egreedy_step))
         if np.random.rand() < epsilon:  # epsilon 확률로 랜덤하게 행동
             return np.random.randint(self._action_space_number)
         else:
@@ -554,5 +553,5 @@ if __name__ == "__main__":
         only_draw_graph=False,  # model 초기화 하고 연산 그래프 그리기
         SaveGameMovie=True)
 
-    # Atari.train  # 학습 하기
+    Atari.train  # 학습 하기
     Atari.test  # 테스트 하기

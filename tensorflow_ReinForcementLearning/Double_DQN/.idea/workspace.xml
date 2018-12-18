@@ -14,8 +14,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="65" column="21" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="21" />
+            <state relative-caret-position="260">
+              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -26,20 +26,11 @@
       <file leaf-file-name="DDQN.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DDQN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="112" column="48" lean-forward="true" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="48" />
+            <state relative-caret-position="653">
+              <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pyplot.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/matplotlib/pyplot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7011">
-              <caret line="421" column="4" selection-start-line="421" selection-start-column="4" selection-end-line="421" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -54,14 +45,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/DDQN.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="389" />
-    <option name="y" value="98" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -77,11 +68,6 @@
             <path>
               <item name="Double_DQN" type="b2602c69:ProjectViewProjectNode" />
               <item name="Double_DQN" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Double_DQN" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Double_DQN" type="462c0819:PsiDirectoryNode" />
-              <item name="BreakoutDeterministic-v4_IC4" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -172,6 +158,33 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1235">
+          <caret line="65" column="21" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/matplotlib/pyplot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7011">
+          <caret line="421" column="4" selection-start-line="421" selection-start-column="4" selection-end-line="421" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DDQN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1919">
+          <caret line="112" column="48" lean-forward="true" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1482">
           <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
           <folding>
@@ -224,10 +237,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-313451744/numpy/core/umath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-729">
+          <caret line="3425" column="4" selection-start-line="3425" selection-start-column="4" selection-end-line="3425" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="65" column="21" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="21" />
+        <state relative-caret-position="260">
+          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
@@ -236,8 +256,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DDQN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="112" column="48" lean-forward="true" selection-start-line="112" selection-start-column="48" selection-end-line="112" selection-end-column="48" />
+        <state relative-caret-position="653">
+          <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

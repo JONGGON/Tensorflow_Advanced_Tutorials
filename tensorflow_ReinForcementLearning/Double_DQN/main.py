@@ -26,7 +26,7 @@ print("<<< CPU만 사용하고 싶다면? '현재 사용 가능한 GPU 번호' �
 
 # 특정 GPU로 학습 하고 싶을때, 아래의 2줄을 꼭 써주자.(Ubuntu , window 둘 다 가능) - 반드시 Tensorflow의 API를 하나라도 쓰기 전에 아래의 2줄을 입력하라!!!
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = '-1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
 # 현재 사용하고 있는 GPU 번호를 얻기 위한 코드 - 여러개의 GPU를 쓸 경우 정보 확인을 위해!
 print("<<< Ubuntu Terminal 창에서 지정해준 경우, 무조건 GPU : 1대, GPU 번호 : 0 라고 출력 됨 >>>")
@@ -58,6 +58,7 @@ Atari = model(
     # https://gym.openai.com/envs/#atari
     # PongDeterministic-v4 or BreakoutDeterministic-v4
     model_name="PongDeterministic-v4",
+    #model_name="BreakoutDeterministic-v4",
     training_display=(True, 1000000),
     training_step=50000000,
     training_start_point=50000,
@@ -79,5 +80,5 @@ Atari = model(
     only_draw_graph=False,  # model 초기화 하고 연산 그래프 그리기
     SaveGameMovie=True)
 
-#Atari.train  # 학습 하기
+Atari.train  # 학습 하기
 Atari.test  # 테스트 하기
