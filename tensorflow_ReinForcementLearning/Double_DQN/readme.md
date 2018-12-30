@@ -1,13 +1,6 @@
 # **DQN**
 
-* Tensorboard
+* Breakout, Pong 결과물(50M Step 학습 후)
 
-    <img src="info.PNG" height = "300px" width="400px"/> 
-
-* 결과물
-    
-    ![video](CartPole.gif)
-
-
-
+    <img src="Breakout.gif" width="400" height="500"> <img src="Pong.gif" width="400" height="500">
 
