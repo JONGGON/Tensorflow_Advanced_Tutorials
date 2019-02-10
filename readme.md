@@ -97,8 +97,8 @@
             * 일단 에피소드를 몇 번 진행해보고 이를 평균내어 학습합니다.
             * 몬테카를로 정책 그라디언트(Monte Carlo Policy Gradient) 방법입니다. 
                     
-        * [***Double Q-learning***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/Double_DQN)
-            * Double Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+        * [***Deep Q-learning***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/DQN)
+            * Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
             * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
 >## **개발 환경**

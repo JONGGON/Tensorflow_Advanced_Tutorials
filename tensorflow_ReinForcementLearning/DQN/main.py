@@ -1,6 +1,6 @@
 from tensorflow.python.client import device_lib
 
-from DDQN import *
+from DQN import *
 
 '''
 window 10 에서도 된다.

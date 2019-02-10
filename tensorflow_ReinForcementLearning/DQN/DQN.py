@@ -12,7 +12,7 @@ import tensorflow as tf
 from tqdm import tqdm
 
 
-class ReplacyMemory(object):
+class ReplayMemory(object):
 
     def __init__(self, maxlen, batch_size, with_replacement):
 
@@ -113,7 +113,7 @@ class model(object):
         self.with_replacement = with_replacement
         self.rememorystackNum = rememorystackNum
 
-        self.RM = ReplacyMemory(maxlen=self.rememorystackNum, batch_size=self.batch_size,
+        self.RM = ReplayMemory(maxlen=self.rememorystackNum, batch_size=self.batch_size,
                                 with_replacement=self.with_replacement)
 
         # DQN 연산그래프 그리기
