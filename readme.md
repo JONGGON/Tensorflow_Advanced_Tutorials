@@ -101,6 +101,16 @@
             * Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
             * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
+        * [***Double Deep Q-learning***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/Double_DQN)
+            * Double Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+            * Double DQN?             
+                
+                * DQN이 각 상태에서 잠재적인 액션의 Q 값을 종종 overestimation 한다는 점에서 착안한 방법론 입니다. DDQN을 사용하면, action 선택과 타깃 Q값 생성을 분리함으로써 estimation 값이 크게 나오는 것을 줄일 수 있고, 더 빠르고 안정적으로 학습을 진행할 수 있습니다.
+                
+                * 구현 방법? 학습 단계에서 target Q 값을 계산할 때 Q 값들에서 최댓값을 구하는 대신 online network에서 가장 큰 Q값을 가지는 action을 선택하고, 해당 action에 대한 target Q값을 target 네트워크에서 생성합니다.
+
+            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 
 * python version(`3.6.4`) : `anaconda3 4.4.10` 

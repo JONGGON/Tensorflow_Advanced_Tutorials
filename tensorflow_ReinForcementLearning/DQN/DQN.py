@@ -85,7 +85,7 @@ class model(object):
         self.game_name = model_name
         self.model_name = model_name + "_IC" + str(framesize)  # IC -> Input Channel
 
-        self.env = gym.make(model_name)  # train , test
+        self.env = gym.make(self.game_name)  # train , test
         self.display = training_display[0]
         self.display_step = training_display[1]
 
