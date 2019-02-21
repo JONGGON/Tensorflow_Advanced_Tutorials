@@ -289,7 +289,7 @@ class model(object):
             print("<<< Restore {} checkpoint!!! >>>".format(os.path.basename(ckpt.model_checkpoint_path)))
             self.saver.restore(self.sess, ckpt.model_checkpoint_path)
             self.start = int(os.path.basename(ckpt.model_checkpoint_path).split("-")[-1])
-			self.start += 1
+            self.start += 1
         else:
             self.start = 1
 
