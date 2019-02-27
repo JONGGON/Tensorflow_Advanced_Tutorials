@@ -110,6 +110,16 @@
                 * 구현 방법? 학습 단계에서 target Q 값을 계산할 때 Q 값들에서 최댓값을 구하는 대신 online network에서 가장 큰 Q값을 가지는 action을 선택하고, 해당 action에 대한 target Q값을 target 네트워크에서 생성합니다.
 
             * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+        
+        * [***Dueling Deep Q-learning***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/Dueling_Double_DQN)
+            * Dueiling Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+            * Dueling DQN?             
+                * Advantage 함수와 Value 함수를 분리하여 계산하고 마지막 계층에서만 조합하여
+                조합하여 하나의 Q값으로 만들어 주는 네트워크 입니다.
+                * 자세한 내용은 논문의 Introduction을 보시면 됩니다.
+                * 본 논문에서는 Double DQN을 기본으로 사용합니다.(선택 가능)  
+
+            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 
