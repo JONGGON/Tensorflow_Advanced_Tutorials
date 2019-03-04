@@ -22,7 +22,7 @@ def model(
         TFRecord=True,
         Inputsize_limit=(256, 256),
         filter_size=8,
-        norm_selection="BN",
+        norm_selection="IN",
         regularizer=" ",
         scale=0.0001,
         cycle_consistency_loss="L1",
@@ -261,7 +261,7 @@ def model(
                 output = conv2d(conv4, weight_shape=(4, 4, filter_size * 16, 1), bias_shape=(1),
                                 strides=[1, 1, 1, 1], padding="VALID")
                 # result shape = (batch_size, 30, 30, 1)
-            return tf.nn.sigmoid(output)
+            return output
 
     def training(cost, var_list, scope=None):
 
@@ -509,12 +509,12 @@ def model(
                     BtoA_LossG = 0
 
                     # 아래의 두 변수가 각각 0.5 씩의 값을 갖는게 가장 이상적이다.
-                    AtoB_sigmoidD = 0
-                    AtoB_sigmoidG = 0
+                    AtoB_outD = 0
+                    AtoB_outG = 0
 
                     # 아래의 두 변수가 각각 0.5 씩의 값을 갖는게 가장 이상적이다.
-                    BtoA_sigmoidD = 0
-                    BtoA_sigmoidG = 0
+                    BtoA_outD = 0
+                    BtoA_outG = 0
 
                     for i in range(total_batch):
 
@@ -522,22 +522,22 @@ def model(
                         temp1, temp2 = sess.run([A, B])
                         if temp1.shape[1] < Inputsize_limit[0] or temp1.shape[2] < Inputsize_limit[1] or temp2.shape[
                             1] < Inputsize_limit[0] or temp2.shape[2] < Inputsize_limit[1]:
-                            print("입력된 이미지 크기는 {}x{} 입니다.".format(temp.shape[1], temp.shape[2]))
+                            print("입력된 이미지 크기는 {}x{} 입니다.".format(temp1.shape[1], temp1.shape[2]))
                             print("입력되는 이미지 크기는 256x256 보다 크거나 같아야 합니다.")
                             print("강제 종료 합니다.")
                             exit(0)
 
                         if norm_selection == "BN":
                             # Generator Update
-                            _, AtoB_G_Loss, AtoB_Dgene_simgoid = sess.run([AtoB_G_train_op, AtoB_GLoss, AtoB_Dgene],
+                            _, AtoB_G_Loss, AtoB_Dgene_out = sess.run([AtoB_G_train_op, AtoB_GLoss, AtoB_Dgene],
                                                                           feed_dict={lr: learning_rate, BN_FLAG: True})
-                            _, BtoA_G_Loss, BtoA_Dgene_simgoid = sess.run([BtoA_G_train_op, BtoA_GLoss, BtoA_Dgene],
+                            _, BtoA_G_Loss, BtoA_Dgene_out = sess.run([BtoA_G_train_op, BtoA_GLoss, BtoA_Dgene],
                                                                           feed_dict={lr: learning_rate, BN_FLAG: True})
                         else:
                             # Generator Update
-                            _, AtoB_G_Loss, AtoB_Dgene_simgoid = sess.run([AtoB_G_train_op, AtoB_GLoss, AtoB_Dgene],
+                            _, AtoB_G_Loss, AtoB_Dgene_out = sess.run([AtoB_G_train_op, AtoB_GLoss, AtoB_Dgene],
                                                                           feed_dict={lr: learning_rate})
-                            _, BtoA_G_Loss, BtoA_Dgene_simgoid = sess.run([BtoA_G_train_op, BtoA_GLoss, BtoA_Dgene],
+                            _, BtoA_G_Loss, BtoA_Dgene_out = sess.run([BtoA_G_train_op, BtoA_GLoss, BtoA_Dgene],
                                                                           feed_dict={lr: learning_rate})
 
                         # image_pool 변수 사용할 때(단 batch_size=1 일 경우만), Discriminator Update
@@ -545,25 +545,25 @@ def model(
                             fake_AtoB_gene, fake_BtoA_gene = imagepool(images=sess.run([AtoB_gene, BtoA_gene]))
 
                             # AtoB_gene, BtoA_gene 에 과거에 생성된 fake_AtoB_gene, fake_BtoA_gene를 넣어주자!!!
-                            _, AtoB_D_Loss, AtoB_Dreal_simgoid = sess.run([AtoB_D_train_op, AtoB_DLoss, AtoB_Dreal],
+                            _, AtoB_D_Loss, AtoB_Dreal_out = sess.run([AtoB_D_train_op, AtoB_DLoss, AtoB_Dreal],
                                                                           feed_dict={lr: learning_rate,
                                                                                      AtoB_gene: fake_AtoB_gene})
-                            _, BtoA_D_Loss, BtoA_Dreal_simgoid = sess.run([BtoA_D_train_op, BtoA_DLoss, BtoA_Dreal],
+                            _, BtoA_D_Loss, BtoA_Dreal_out = sess.run([BtoA_D_train_op, BtoA_DLoss, BtoA_Dreal],
                                                                           feed_dict={lr: learning_rate,
                                                                                      BtoA_gene: fake_BtoA_gene})
                         # image_pool 변수를 사용하지 않을 때, Discriminator Update
                         else:
                             if norm_selection == "BN":
-                                _, AtoB_D_Loss, AtoB_Dreal_simgoid = sess.run([AtoB_D_train_op, AtoB_DLoss, AtoB_Dreal],
+                                _, AtoB_D_Loss, AtoB_Dreal_out = sess.run([AtoB_D_train_op, AtoB_DLoss, AtoB_Dreal],
                                                                               feed_dict={lr: learning_rate,
                                                                                          BN_FLAG: True})
-                                _, BtoA_D_Loss, BtoA_Dreal_simgoid = sess.run([BtoA_D_train_op, BtoA_DLoss, BtoA_Dreal],
+                                _, BtoA_D_Loss, BtoA_Dreal_out = sess.run([BtoA_D_train_op, BtoA_DLoss, BtoA_Dreal],
                                                                               feed_dict={lr: learning_rate,
                                                                                          BN_FLAG: True})
                             else:
-                                _, AtoB_D_Loss, AtoB_Dreal_simgoid = sess.run([AtoB_D_train_op, AtoB_DLoss, AtoB_Dreal],
+                                _, AtoB_D_Loss, AtoB_Dreal_out = sess.run([AtoB_D_train_op, AtoB_DLoss, AtoB_Dreal],
                                                                               feed_dict={lr: learning_rate})
-                                _, BtoA_D_Loss, BtoA_Dreal_simgoid = sess.run([BtoA_D_train_op, BtoA_DLoss, BtoA_Dreal],
+                                _, BtoA_D_Loss, BtoA_Dreal_out = sess.run([BtoA_D_train_op, BtoA_DLoss, BtoA_Dreal],
                                                                               feed_dict={lr: learning_rate})
 
                         AtoB_LossD += (AtoB_D_Loss / total_batch)
@@ -571,10 +571,10 @@ def model(
                         BtoA_LossD += (BtoA_D_Loss / total_batch)
                         BtoA_LossG += (BtoA_G_Loss / total_batch)
 
-                        AtoB_sigmoidD += (np.mean(AtoB_Dreal_simgoid, axis=(1, 2, 3)) / total_batch)
-                        AtoB_sigmoidG += (np.mean(AtoB_Dgene_simgoid, axis=(1, 2, 3)) / total_batch)
-                        BtoA_sigmoidD += (np.mean(BtoA_Dreal_simgoid, axis=(1, 2, 3)) / total_batch)
-                        BtoA_sigmoidG += (np.mean(BtoA_Dgene_simgoid, axis=(1, 2, 3)) / total_batch)
+                        AtoB_outD += (np.mean(AtoB_Dreal_out, axis=(1, 2, 3)) / total_batch)
+                        AtoB_outG += (np.mean(AtoB_Dgene_out, axis=(1, 2, 3)) / total_batch)
+                        BtoA_outD += (np.mean(BtoA_Dreal_out, axis=(1, 2, 3)) / total_batch)
+                        BtoA_outG += (np.mean(BtoA_Dgene_out, axis=(1, 2, 3)) / total_batch)
 
                         if norm_selection == "BN":
                             summary_str = sess.run(summary_operation, feed_dict={BN_FLAG: True})
@@ -586,9 +586,9 @@ def model(
                         print("<<< {} epoch : {} batch running of {} total batch... >>>".format(epoch, i, total_batch))
 
                     print("<<< AtoB Discriminator mean output : {} / AtoB Generator mean output : {} >>>".format(
-                        np.mean(AtoB_sigmoidD), np.mean(AtoB_sigmoidG)))
+                        np.mean(AtoB_outD), np.mean(AtoB_outG)))
                     print("<<< BtoA Discriminator mean output : {} / BtoA Generator mean output : {} >>>".format(
-                        np.mean(AtoB_sigmoidD), np.mean(AtoB_sigmoidG)))
+                        np.mean(AtoB_outD), np.mean(AtoB_outG)))
                     print("<<< AtoB Discriminator Loss : {} / AtoB Generator Loss  : {} >>>".format(AtoB_LossD,
                                                                                                     AtoB_LossG))
                     print("<<< BtoA Discriminator Loss : {} / BtoA Generator Loss  : {} >>>".format(BtoA_LossD,
@@ -739,12 +739,12 @@ if __name__ == "__main__":
     # TEST=True 시 입력 이미지의 크기가 256x256 미만이면 강제 종료한다.
     model(
         DB_name="horse2zebra",  # DB_name 은 "horse2zebra"에만 대비되어 있다.
-        TEST=False,  # TEST=False -> Training or TEST=True -> TEST
-        TFRecord=True,  # TFRecord=True -> TFRecord파일로 저장한후 사용하는 방식 사용 or TFRecord=False -> 파일에서 읽어오는 방식 사용
+        TEST=True,  # TEST=False -> Training or TEST=True -> TEST
+        TFRecord=False,  # TFRecord=True -> TFRecord파일로 저장한후 사용하는 방식 사용 or TFRecord=False -> 파일에서 읽어오는 방식 사용
         Inputsize_limit=(256, 256),  # 입력되어야 하는 최소 사이즈를 내가 지정 - (256,256) 으로 하자
         filter_size=32,  # generator와 discriminator의 처음 layer의 filter 크기
-        norm_selection="BN",  # IN - instance normalizaiton , BN -> batch normalization, NOTHING
-        regularizer=" ",  # L1 or L2 정규화 -> 오버피팅 막기 위함
+        norm_selection="IN",  # IN - instance normalizaiton , BN -> batch normalization, NOTHING
+        regularizer="",  # L1 or L2 정규화  -> 오버피팅 막기 위함
         scale=0.0001,  # L1 or L2 정규화 weight
         cycle_consistency_loss="L1",  # cycle loss -> L1 or L2
         cycle_consistency_loss_weight=10,  # cycle loss으 가중치

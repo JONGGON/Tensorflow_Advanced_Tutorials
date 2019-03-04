@@ -72,11 +72,11 @@ for i, GL in enumerate(GPU_List):
 # TEST=True 시 입력 이미지의 크기가 256x256 미만이면 강제 종료한다.
 cycleGAN.model(
     DB_name="horse2zebra",  # DB_name 은 "horse2zebra"에만 대비되어 있다.
-    TEST=False,  # TEST=False -> Training or TEST=True -> TEST
-    TFRecord=True,  # TFRecord=True -> TFRecord파일로 저장한후 사용하는 방식 사용 or TFRecord=False -> 파일에서 읽어오는 방식 사용
+    TEST=True,  # TEST=False -> Training or TEST=True -> TEST
+    TFRecord=False,  # TFRecord=True -> TFRecord파일로 저장한후 사용하는 방식 사용 or TFRecord=False -> 파일에서 읽어오는 방식 사용
     Inputsize_limit=(256, 256),  # 입력되어야 하는 최소 사이즈를 내가 지정 - (256,256) 으로 하자
     filter_size=32,  # generator와 discriminator의 처음 layer의 filter 크기
-    norm_selection="BN",  # IN - instance normalizaiton , BN -> batch normalization, NOTHING
+    norm_selection="IN",  # IN - instance normalizaiton , BN -> batch normalization, NOTHING
     regularizer="",  # L1 or L2 정규화  -> 오버피팅 막기 위함
     scale=0.0001,  # L1 or L2 정규화 weight
     cycle_consistency_loss="L1",  # cycle loss -> L1 or L2
