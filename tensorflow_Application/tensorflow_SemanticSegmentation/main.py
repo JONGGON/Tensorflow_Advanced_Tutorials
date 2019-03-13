@@ -1,4 +1,4 @@
-import argparse
+# import argparse
 
 from tensorflow.python.client import device_lib
 
@@ -31,16 +31,16 @@ for i, GL in enumerate(GPU_List):
     else:
         print(" " + num + ",", end="")
 
-parser = argparse.ArgumentParser()
-'''
-train = True  --> 학습 
-train = False --> 평가
-'''
-parser.add_argument("--train", help="bool type", type=bool, default=False)
-args = parser.parse_args()
-
-if args.train:
-
+# parser = argparse.ArgumentParser()
+# '''
+# train = True  --> 학습
+# train = False --> 평가
+# '''
+# parser.add_argument("--train", help="bool type", type=bool, default=False)
+# args = parser.parse_args()
+Train = True
+#if args.train:
+if Train:
     model = Model(DB_choice_percentage=1,  # 0=< DB_choice_percentage <= 1
                   Inputsize_limit=(256, 256),  # 입력되어야 하는 최소 사이즈를 내가 지정 - (256,256) 으로 하자
                   input_range="0~1", # or -1~1
@@ -79,7 +79,6 @@ if args.train:
                   class_number=2)
 
     model.train()
-
 else:
     db_test(model_name="32UNETSCELIN0~1",
             Inputsize_limit=(256, 256),
