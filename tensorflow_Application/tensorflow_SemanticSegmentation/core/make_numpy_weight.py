@@ -3,15 +3,6 @@ import numpy as np
 import tensorflow as tf
 
 # 가중치 저장 - 약간 생소한 API지만 유용.
-
-''' <<< 종곤-대경 협약 >>>
-
-LearnedInfo 폴더 아래 
- minmax.npy 파일
- /Weight/weight, bias 파일
- /BatchNorm/ 나머지 파일
-
-'''
 def make_numpy_weight(model_path, folder_path, input_range, WeightSelection=None):
 
     weight_save_path = os.path.join(folder_path, "Weight")
