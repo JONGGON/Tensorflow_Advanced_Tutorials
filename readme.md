@@ -94,7 +94,7 @@
                 * 필요한 것? 입력 이미지(.bmp), 정답 이미지들(.npy) 입니다.
                 * 정답 이미지들(.npy)은 각각의 1채널 Segmentation map을 channel(depth) 방향으로 쌓은 형태 입니다.(여기서 channel or depth의 수는 segmentation 하고자 하는 class number와 같습니다.)
                     ```
-                    예를 들어, (Height, Width, class number) 형태가 됩니다..
+                    예를 들어, (Height, Width, class number) 형태가 됩니다.
                     ```
                 * tfrecord를 사용해 데이터를 처리하고 불러옵니다.
                 * pixel wise softmax cross entropy, soft dice loss를 지원합니다. 
