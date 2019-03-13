@@ -90,7 +90,21 @@
                 * 256x256 크기 이상의 서로 다른 크기의 이미지들을 동시에 학습 할 수 있습니다.
                     * 256x256 크기의 이미지로 학습한 생성 네트워크에 512x512 크기의 이미지를 입력으로 넣어 성능을 평가하기 위한 기능입니다. 다양한 크기의 이미지를 동시에 학습하는 것도 가능합니다. ( 관련 내용 : [Image To Image Translation With Conditional Adversarial Networks Using edges2shoes Dataset 논문의 7p 참고](https://arxiv.org/pdf/1611.07004.pdf))
 
+            * [***Semantic Segmentation***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_SemanticSegmentation)
+                * 필요한 것? 입력 이미지(.bmp), 정답 이미지들(.npy) 입니다.
+                * 정답 이미지들(.npy)은 각각의 1채널 Segmentation map을 channel(depth) 방향으로 쌓은 형태 입니다.(여기서 channel or depth의 수는 segmentation 하고자 하는 class number와 같습니다.)
+                    ```
+                    예를 들어, (Height, Width, class number) 형태가 됩니다..
+                    ```
+                * tfrecord를 사용해 데이터를 처리하고 불러옵니다.
+                * pixel wise softmax cross entropy, soft dice loss를 지원합니다. 
+                * UNET만 구현되어 있습니다.
+                    * 다른 네트워크를 구현하고 싶다면 core/model/network에 구현을 하시면 됩니다.
+                    
     * ### **Reinforcement Learning**
+
+        * 저는 강화 학습 초보 입니다. 논문을 정독하면서 공부하고 구현하는 것이기 때문에, 아래의 
+        주제들을 이해하고 구현하는데 상당히 시간이 많이 걸릴듯 합니다.  
 
         * [***Policy Gradient with CartPole***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_ReinForcementLearning/PG_CartPole) 
             * 카트 위에 놓인 막대가 넘어지지 않도록 왼쪽 또는 오른쪽으로 가속시키는 2D 시뮬레이션입니다.
@@ -121,13 +135,31 @@
 
             * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
 
+        * [***Prioritized Experience Replay with Dueling Deep Q-learning***]()
+            * PER with Dueiling Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
+            * PER(Prioritized Experience Replay?             
+                * 저도 공부중 
+            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+            * 아직 공부중..
+        
+        * [***Deep Q-Learning with Recurrent Neural Networks***]()
+            * Deep Q-네트워크(Deep Q-networks) with RNN을 사용한 방법입니다.
+            * DRQN?
+            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+            * 아직 공부중..
+        
+        * [***Asynchronous Methods for Deep Reinforcement Learning***]()
+            * Asynchronous Methods for Deep Reinforcement Learning?
+            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
+            * 아직 공부중..
+
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 
 * python version(`3.6.4`) : `anaconda3 4.4.10` 
 * IDE : `pycharm Community Edition 2018.1.2`
     
 >## **코드 실행에 필요한 파이썬 모듈** 
-* Tensorflow-1.10
+* Tensorflow-1.12
 * numpy, collections, pandas, random
 * matplotlib, scikit-learn, opencv-python, scipy, copy
 * tqdm, os, glob, shutil, urllib, zipfile, tarfile
