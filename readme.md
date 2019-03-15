@@ -138,9 +138,9 @@
         * [***Prioritized Experience Replay with Dueling Deep Q-learning***]()
             * PER with Dueiling Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
             * PER(Prioritized Experience Replay?             
-                * 저도 공부중 
+                * 예측 값과 타겟 값 사이(temporal differece error)에 '큰 차이'가 있는 경험들에 더 많은 관심을 두어 학습을 진행하는 방법론(경험에도 우선순위를 매기는 것)
             * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
-            * 아직 공부중..
+            * 구현 시도중
         
         * [***Deep Q-Learning with Recurrent Neural Networks***]()
             * Deep Q-네트워크(Deep Q-networks) with RNN을 사용한 방법입니다.
