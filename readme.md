@@ -66,6 +66,7 @@
                 * Tensorboard Embedding에서 지원하는 PCA, T-SNE와 같은 차원 축소 알고리즘으로 Embedding된 단어들의 관계를 시각화 해봅니다.
 
             * [***Image To Image Translation With Conditional Adversarial Networks***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_ImageToImageTranslationWithConditionalAdversarialNetworks_Graph)
+                * 자질구레한 문제가 생겨서 코드를 내립니다.
                 * 어떤 도메인의 이미지의 다른 도메인의 이미지로의 변환이라는 거룩한 목적을 위해 고안된 네트워크입니다. ConditionalGAN 과 UNET을 사용하여 네트워크 구성 합니다.
                 * 네트워크 구조 및 학습 방법은 논문에서 제시한 내용과 거의 같습니다.(Discriminator 구조인 PatchGAN 의 크기는 70X70 입니다. - [ReceptiveField 계산법](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/blob/master/tensorflow_ModelWithFixedLengthDataset/tensorflow_ConvolutionNeuralNetwork/ReceptiveField_inspection/rf.py)
                 * 2가지의 데이터 전처리 방법  -
@@ -79,6 +80,7 @@
                     Shrivastava et al’s strategy [45] and update the discriminators using a history of generated images rather than the ones produced by the latest generative networks. We keep an image buffer that stores the 50 previously generated images.
             
             * [***Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_UnpairedImageToImageTranslationUsingCycleConsistentAdversarialNetworks_Graph)
+                * 자질구레한 문제가 생겨서 코드를 내립니다.
                 * Image To Image Translation With Conditional Adversarial Newort을 학습시키기 위해선 입력과 출력이 한 쌍인 데이터가 필요했습니다. 그러나 이 논문에서 제시한 방법은 입력과 출력이 쌍일 필요가 없습니다.
                 * CycleGan은 전혀 다른 도메인에 있는 두 종류의 데이터 집단을 자연스럽게 이어주는 연결고리를 찾아내는 과정이라고 생각합니다.
                 * ImagePool 함수는 batch size가 1일 때만 동작합니다.
@@ -91,6 +93,7 @@
                     * 256x256 크기의 이미지로 학습한 생성 네트워크에 512x512 크기의 이미지를 입력으로 넣어 성능을 평가하기 위한 기능입니다. 다양한 크기의 이미지를 동시에 학습하는 것도 가능합니다. ( 관련 내용 : [Image To Image Translation With Conditional Adversarial Networks Using edges2shoes Dataset 논문의 7p 참고](https://arxiv.org/pdf/1611.07004.pdf))
 
             * [***Semantic Segmentation***](https://github.com/JONGGON/Tensorflow_Advanced_Tutorials/tree/master/tensorflow_Application/tensorflow_SemanticSegmentation)
+                * 자질구레한 문제가 생겨서 코드를 내립니다.
                 * 필요한 것? 입력 이미지(.bmp), 정답 이미지들(.npy) 입니다.
                 * 정답 이미지들(.npy)은 각각의 1채널 Segmentation map을 channel(depth) 방향으로 쌓은 형태 입니다.(여기서 channel or depth의 수는 segmentation 하고자 하는 class number와 같습니다.)
                     ```
