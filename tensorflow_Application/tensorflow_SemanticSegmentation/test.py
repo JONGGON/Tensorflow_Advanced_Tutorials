@@ -110,15 +110,7 @@ def db_test(model_name="",
                         print("<<< 강제 종료합니다. >>>")
                         exit(0)
 
-            # 가중치 저장 - 약간 생소한 API지만 유용.
-
-            ''' <<< 종곤-대경 협약 >>>
-
-            LearnedInfo 폴더 아래 
-             minmax.npy 파일
-             /Weight/weight, bias 파일
-             /BatchNorm/ 나머지 파일
-            '''
+			# numpy 로 학습 완료된 가중치 저장하기
             if weights_to_numpy:
                 # weight가 저장될 장소
                 folder_path = model_name + "_LearnedInfo"
