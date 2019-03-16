@@ -137,25 +137,7 @@
                 * 본 논문에서는 Double DQN을 기본으로 사용합니다.(선택 가능)  
 
             * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
-
-        * [***Prioritized Experience Replay with Dueling Deep Q-learning***]()
-            * PER with Dueiling Deep Q-네트워크(Deep Q-networks)를 사용한 방법입니다.
-            * PER(Prioritized Experience Replay?             
-                * 예측 값과 타겟 값 사이(temporal differece error)에 '큰 차이'가 있는 경험들에 더 많은 관심을 두어 학습을 진행하는 방법론(경험에도 우선순위를 매기는 것)
-            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
-            * 구현 시도중
-        
-        * [***Deep Q-Learning with Recurrent Neural Networks***]()
-            * Deep Q-네트워크(Deep Q-networks) with RNN을 사용한 방법입니다.
-            * DRQN?
-            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
-            * 아직 공부중..
-        
-        * [***Asynchronous Methods for Deep Reinforcement Learning***]()
-            * Asynchronous Methods for Deep Reinforcement Learning?
-            * 다양한 gym 환경들에 대해서 학습이 가능합니다.(참고 : https://gym.openai.com/envs/#atari) 
-            * 아직 공부중..
-
+ 
 >## **개발 환경**
 * os : ```window 10.1 64bit, ubuntu 18.04``` 
 * python version(`3.6.4`) : `anaconda3 4.4.10` 
